@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { logoutMockAccount, useCurrentAccount } from "../services/mockAuth";
+import { getCurrentAccount, logoutMockAccount } from "../services/mockAuth";
 import { BookIcon, ChartIcon, HomeIcon } from "./portal/PortalIcons";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 export default function Layout({ children }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const account = useCurrentAccount();
+  const account = getCurrentAccount();
 
   function handleLogout() {
     logoutMockAccount();

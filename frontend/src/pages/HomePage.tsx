@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import AuthForm from "../components/portal/AuthForm";
 import DashboardView from "../components/portal/DashboardView";
 import DiagnosticGateView from "../components/portal/DiagnosticGateView";
-import { useCurrentAccount } from "../services/mockAuth";
+import { getCurrentAccount } from "../services/mockAuth";
 import { getPortalBootstrap } from "../services/portalApi";
 import { getStoredUser } from "../services/userSession";
 
 export default function HomePage() {
-  const account = useCurrentAccount();
+  const account = getCurrentAccount();
   const user = getStoredUser();
 
   const bootstrapQuery = useQuery({

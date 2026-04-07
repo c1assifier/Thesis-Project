@@ -1,13 +1,11 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { loginMockAccount, registerMockAccount } from "../../services/mockAuth";
 import { GraduationCapIcon, LockIcon, MailIcon } from "./PortalIcons";
 import { PortalPanel, PortalWireframe } from "./PortalPrimitives";
 
 export default function AuthForm() {
-  const navigate = useNavigate();
   const [mode, setMode] = useState<"login" | "register">("login");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +22,7 @@ export default function AuthForm() {
           ? await loginMockAccount({ email, password })
           : await registerMockAccount({ name, email, password });
       setError("");
-      navigate(account.diagnosticCompleted ? "/" : "/diagnostic", { replace: true });
+      window.location.replace(account.diagnosticCompleted ? "/" : "/diagnostic");
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "Не удалось выполнить вход.");
     } finally {

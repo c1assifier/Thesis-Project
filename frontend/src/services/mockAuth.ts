@@ -1,5 +1,3 @@
-import { useSyncExternalStore } from "react";
-
 import { loginAuth, registerAuth, type User } from "./api";
 
 export interface MockAccount {
@@ -27,11 +25,6 @@ type LoginInput = {
 
 const ACCOUNTS_KEY = "mock_auth_accounts";
 const SESSION_KEY = "mock_auth_session";
-const AUTH_STATE_EVENT = "mock-auth-state-change";
-
-function emitAuthStateChange(): void {
-  window.dispatchEvent(new Event(AUTH_STATE_EVENT));
-}
 
 function readAccounts(): MockAccount[] {
   const raw = window.localStorage.getItem(ACCOUNTS_KEY);
@@ -50,7 +43,6 @@ function readAccounts(): MockAccount[] {
 
 function writeAccounts(accounts: MockAccount[]): void {
   window.localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
-  emitAuthStateChange();
 }
 
 function readSessionAccountId(): string | null {
@@ -63,7 +55,6 @@ function writeSessionAccountId(accountId: string | null): void {
   } else {
     window.localStorage.removeItem(SESSION_KEY);
   }
-  emitAuthStateChange();
 }
 
 function normalizeEmail(email: string): string {
@@ -89,19 +80,6 @@ export function getCurrentAccount(): MockAccount | null {
     return null;
   }
   return readAccounts().find((account) => account.id === accountId) ?? null;
-}
-
-export function subscribeCurrentAccount(listener: () => void): () => void {
-  window.addEventListener(AUTH_STATE_EVENT, listener);
-  window.addEventListener("storage", listener);
-  return () => {
-    window.removeEventListener(AUTH_STATE_EVENT, listener);
-    window.removeEventListener("storage", listener);
-  };
-}
-
-export function useCurrentAccount(): MockAccount | null {
-  return useSyncExternalStore(subscribeCurrentAccount, getCurrentAccount, () => null);
 }
 
 export async function registerMockAccount(input: RegisterInput): Promise<MockAccount> {
