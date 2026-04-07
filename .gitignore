@@ -1,0 +1,13 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+node_modules/
+dist/
+postgres_data/
+test.db
+*.md
+!README.md

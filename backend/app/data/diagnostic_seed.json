@@ -1,0 +1,171 @@
+{
+  "diagnostic_test": {
+    "title": "Диагностика по курсу Python",
+    "description": "Диагностика определяет текущий уровень по базовым навыкам и помогает адаптировать основную траекторию курса.",
+    "is_active": true,
+    "questions": [
+      {
+        "order_index": 1,
+        "question_type": "multiple_choice",
+        "question_text": "Как корректно создать переменную со значением 10?",
+        "code_snippet": "",
+        "options": ["x = 10", "int x = 10", "x := 10", "let x = 10"],
+        "correct_answer": "x = 10",
+        "skills": [{ "skill_name": "variables", "weight": 1 }]
+      },
+      {
+        "order_index": 2,
+        "question_type": "code_analysis",
+        "question_text": "Какой тип будет у переменной value после выполнения кода?",
+        "code_snippet": "value = \"42\"",
+        "options": ["int", "float", "str", "bool"],
+        "correct_answer": "str",
+        "skills": [{ "skill_name": "variables", "weight": 1 }]
+      },
+      {
+        "order_index": 3,
+        "question_type": "output_prediction",
+        "question_text": "Что выведет программа?",
+        "code_snippet": "a = 5\nb = 2\nprint(a + b)",
+        "options": ["52", "7", "3", "Ошибка"],
+        "correct_answer": "7",
+        "skills": [{ "skill_name": "variables", "weight": 1 }]
+      },
+      {
+        "order_index": 4,
+        "question_type": "multiple_choice",
+        "question_text": "Какой оператор используется для сравнения равенства?",
+        "code_snippet": "",
+        "options": ["=", "==", "!=", ":="],
+        "correct_answer": "==",
+        "skills": [{ "skill_name": "conditions", "weight": 1 }]
+      },
+      {
+        "order_index": 5,
+        "question_type": "code_analysis",
+        "question_text": "Что выведет программа?",
+        "code_snippet": "x = 3\nif x > 5:\n    print(\"A\")\nelse:\n    print(\"B\")",
+        "options": ["A", "B", "Ничего", "Ошибка"],
+        "correct_answer": "B",
+        "skills": [{ "skill_name": "conditions", "weight": 1 }]
+      },
+      {
+        "order_index": 6,
+        "question_type": "multiple_choice",
+        "question_text": "Как записать условие 'x больше 0 и меньше 10'?",
+        "code_snippet": "",
+        "options": ["x > 0 & x < 10", "x > 0 and x < 10", "x between 0 and 10", "x > 0 && x < 10"],
+        "correct_answer": "x > 0 and x < 10",
+        "skills": [{ "skill_name": "conditions", "weight": 1 }]
+      },
+      {
+        "order_index": 7,
+        "question_type": "output_prediction",
+        "question_text": "Что выведет программа?",
+        "code_snippet": "for i in range(3):\n    print(i)",
+        "options": ["0 1 2", "1 2 3", "0 1 2 3", "Ничего"],
+        "correct_answer": "0 1 2",
+        "skills": [{ "skill_name": "loops", "weight": 1 }]
+      },
+      {
+        "order_index": 8,
+        "question_type": "multiple_choice",
+        "question_text": "Какой цикл выполняется, пока условие истинно?",
+        "code_snippet": "",
+        "options": ["for", "repeat", "while", "loop"],
+        "correct_answer": "while",
+        "skills": [{ "skill_name": "loops", "weight": 1 }]
+      },
+      {
+        "order_index": 9,
+        "question_type": "code_analysis",
+        "question_text": "Какой будет итоговый вывод?",
+        "code_snippet": "s = 0\nfor x in [1, 2, 3]:\n    s += x\nprint(s)",
+        "options": ["123", "6", "3", "Ошибка"],
+        "correct_answer": "6",
+        "skills": [{ "skill_name": "loops", "weight": 1 }]
+      },
+      {
+        "order_index": 10,
+        "question_type": "multiple_choice",
+        "question_text": "Как получить длину строки text?",
+        "code_snippet": "",
+        "options": ["text.length()", "len(text)", "size(text)", "text.len"],
+        "correct_answer": "len(text)",
+        "skills": [{ "skill_name": "strings", "weight": 1 }]
+      },
+      {
+        "order_index": 11,
+        "question_type": "output_prediction",
+        "question_text": "Что выведет программа?",
+        "code_snippet": "text = \"Python\"\nprint(text[0])",
+        "options": ["P", "y", "Python", "Ошибка"],
+        "correct_answer": "P",
+        "skills": [{ "skill_name": "strings", "weight": 1 }]
+      },
+      {
+        "order_index": 12,
+        "question_type": "code_analysis",
+        "question_text": "Какой результат даст выражение?",
+        "code_snippet": "text = \"abcd\"\nprint(text[1:3])",
+        "options": ["bc", "bcd", "ab", "cd"],
+        "correct_answer": "bc",
+        "skills": [{ "skill_name": "strings", "weight": 1 }]
+      },
+      {
+        "order_index": 13,
+        "question_type": "multiple_choice",
+        "question_text": "Как создать список из чисел 1, 2, 3?",
+        "code_snippet": "",
+        "options": ["[1, 2, 3]", "(1, 2, 3)", "{1, 2, 3}", "list(1, 2, 3)"],
+        "correct_answer": "[1, 2, 3]",
+        "skills": [{ "skill_name": "lists", "weight": 1 }]
+      },
+      {
+        "order_index": 14,
+        "question_type": "code_analysis",
+        "question_text": "Что выведет программа?",
+        "code_snippet": "nums = [3, 1, 2]\nnums.sort()\nprint(nums)",
+        "options": ["[3, 1, 2]", "[1, 2, 3]", "1 2 3", "Ошибка"],
+        "correct_answer": "[1, 2, 3]",
+        "skills": [{ "skill_name": "lists", "weight": 1 }]
+      },
+      {
+        "order_index": 15,
+        "question_type": "output_prediction",
+        "question_text": "Какой элемент будет напечатан?",
+        "code_snippet": "values = [10, 20, 30]\nprint(values[-1])",
+        "options": ["10", "20", "30", "Ошибка"],
+        "correct_answer": "30",
+        "skills": [{ "skill_name": "lists", "weight": 1 }]
+      },
+      {
+        "order_index": 16,
+        "question_type": "multiple_choice",
+        "question_text": "Как объявить функцию в Python?",
+        "code_snippet": "",
+        "options": ["function hello():", "def hello():", "func hello():", "lambda hello():"],
+        "correct_answer": "def hello():",
+        "skills": [{ "skill_name": "functions", "weight": 1 }]
+      },
+      {
+        "order_index": 17,
+        "question_type": "code_analysis",
+        "question_text": "Что вернёт вызов add(2, 3)?",
+        "code_snippet": "def add(a, b):\n    return a + b",
+        "options": ["5", "23", "None", "Ошибка"],
+        "correct_answer": "5",
+        "skills": [{ "skill_name": "functions", "weight": 1 }]
+      },
+      {
+        "order_index": 18,
+        "question_type": "output_prediction",
+        "question_text": "Что выведет программа?",
+        "code_snippet": "def greet(name):\n    print(\"Привет, \" + name)\n\ngreet(\"Аня\")",
+        "options": ["Привет, name", "Привет, Аня", "Аня", "Ошибка"],
+        "correct_answer": "Привет, Аня",
+        "skills": [{ "skill_name": "functions", "weight": 1 }]
+      }
+    ]
+  }
+}

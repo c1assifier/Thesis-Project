@@ -1,0 +1,2546 @@
+{
+  "courses": [
+    {
+      "title": "Адаптивный курс по Python",
+      "description": "Полный вводный курс по Python для студентов с адаптивной подачей теории и практики.",
+      "goals": "Освоить основы языка Python, научиться решать практические задачи и постепенно перейти к уверенной разработке простых программ.",
+      "adaptive_overview": "После каждой отправки решения система обновляет оценку навыка, анализирует сложность темы и предлагает следующий учебный шаг.",
+      "modules": [
+        {
+          "title": "Введение в Python",
+          "difficulty": "easy",
+          "order_index": 1,
+          "lessons": [
+            {
+              "title": "Первый код",
+              "content": "В уроке рассматриваются запуск Python-программ и базовый вывод данных.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "Функция print",
+                  "difficulty": "easy",
+                  "skill_name": "variables",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Вывод текста",
+                      "content": "Функция print() — встроенная функция Python, которая выводит данные на экран. Это первое, с чего начинают все программисты: убедиться, что программа работает.\n\nПростейший пример:\n\nprint('Привет, мир!')\n\nВ print можно передать любой тип данных: строку, число или переменную.\n\nx = 42\nprint(x)        # выведет: 42\nprint('x =', x) # выведет: x = 42\n\nПо умолчанию print добавляет перевод строки в конце. Чтобы вывести несколько значений в одну строку, используйте параметр end:\n\nprint('Шаг 1', end=' ')\nprint('Шаг 2')  # выведет: Шаг 1 Шаг 2",
+                      "simplified_content": "print() выводит текст на экран. Пример: print('Привет!'). Можно выводить числа: x = 5; print(x).",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Приветствие",
+                      "description": "Создайте функцию greet(), которая возвращает строку 'Привет, Python!'.",
+                      "starter_code": "def greet():\n    pass\n",
+                      "solution": "def greet():\n    return 'Привет, Python!'\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Базовое приветствие",
+                          "assertion_code": "assert greet() == 'Привет, Python!'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Тип результата",
+                          "assertion_code": "assert isinstance(greet(), str)",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Текст сообщения",
+                      "description": "Создайте функцию lesson_name(), которая возвращает строку 'Первый код'.",
+                      "starter_code": "def lesson_name():\n    pass\n",
+                      "solution": "def lesson_name():\n    return 'Первый код'\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Название урока",
+                          "assertion_code": "assert lesson_name() == 'Первый код'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Строковый тип",
+                          "assertion_code": "assert isinstance(lesson_name(), str)",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Комментарии и структура программы",
+                  "difficulty": "easy",
+                  "skill_name": "variables",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Зачем нужны комментарии",
+                      "content": "Комментарий — это часть кода, которую Python полностью игнорирует при выполнении программы. Комментарии нужны, чтобы объяснить логику коллегам и самому себе через несколько месяцев.\n\nОднострочный комментарий начинается с символа #:\n\n# Это пояснение к следующей строке\nx = 10  # Это инлайн-комментарий\n\nМожно писать несколько строк с # подряд:\n\n# Программа считает площадь прямоугольника\n# Результат сохраняется в переменную area\narea = 5 * 3\n\nХороший комментарий объясняет ЗАЧЕМ написан код, а не ЧТО он делает — это обычно понятно из самого кода.",
+                      "simplified_content": "# — это комментарий, Python его игнорирует. Пример: # моё пояснение. Пиши комментарии чтобы объяснить сложные места.",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Короткий комментарий",
+                      "description": "Создайте функцию comment_text(), которая возвращает строку 'Комментарий помогает понять код'.",
+                      "starter_code": "def comment_text():\n    pass\n",
+                      "solution": "def comment_text():\n    return 'Комментарий помогает понять код'\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Проверка текста",
+                          "assertion_code": "assert comment_text() == 'Комментарий помогает понять код'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Проверка типа",
+                          "assertion_code": "assert isinstance(comment_text(), str)",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Структура программы",
+                      "description": "Создайте функцию code_block(), которая возвращает строку 'Функция содержит инструкции'.",
+                      "starter_code": "def code_block():\n    pass\n",
+                      "solution": "def code_block():\n    return 'Функция содержит инструкции'\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Текст структуры",
+                          "assertion_code": "assert code_block() == 'Функция содержит инструкции'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустая строка недопустима",
+                          "assertion_code": "assert len(code_block()) > 0",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Числа и выражения",
+              "content": "Урок посвящен числам, арифметике и приоритету операций.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Сложение и вычитание",
+                  "difficulty": "easy",
+                  "skill_name": "variables",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Арифметические операции",
+                      "content": "Операторы + и - — это основные инструменты арифметики в Python. Они работают с целыми числами (int) и числами с плавающей точкой (float).\n\nПримеры сложения и вычитания:\n\nresult = 5 + 3   # result = 8\ndiff = 10 - 4    # diff = 6\n\nМожно использовать отрицательные числа и комбинировать операции:\n\na = -3 + 7       # a = 4\nb = 100 - 50 - 25  # b = 25\n\nРезультат можно сразу вывести на экран с помощью print:\n\nprint(8 + 2)   # выведет: 10\nprint(8 - 2)   # выведет: 6",
+                      "simplified_content": "+ складывает числа, - вычитает. Пример: print(3 + 2) выведет 5, print(5 - 1) выведет 4.",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Сумма двух чисел",
+                      "description": "Создайте функцию add(a, b), которая возвращает сумму двух чисел.",
+                      "starter_code": "def add(a, b):\n    pass\n",
+                      "solution": "def add(a, b):\n    return a + b\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Обычные числа",
+                          "assertion_code": "assert add(2, 3) == 5",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Отрицательное число",
+                          "assertion_code": "assert add(-1, 5) == 4",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Разность чисел",
+                      "description": "Создайте функцию subtract(a, b), которая возвращает разность a и b.",
+                      "starter_code": "def subtract(a, b):\n    pass\n",
+                      "solution": "def subtract(a, b):\n    return a - b\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Разность",
+                          "assertion_code": "assert subtract(7, 2) == 5",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Ноль",
+                          "assertion_code": "assert subtract(3, 3) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Умножение и деление",
+                  "difficulty": "easy",
+                  "skill_name": "variables",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Произведение и частное",
+                      "content": "Оператор * выполняет умножение, а / — деление. Важная особенность Python 3: деление / всегда возвращает float, даже если оба числа целые.\n\nПримеры умножения и деления:\n\nproduct = 4 * 5    # product = 20\nquotient = 10 / 4  # quotient = 2.5\n\nЕсли нужен целочисленный результат (без дробной части), используют оператор //:\n\nwhole = 10 // 3    # whole = 3  (целая часть от деления)\nremainder = 10 % 3 # remainder = 1 (остаток от деления)\n\nОстерегайтесь деления на ноль — это вызовет ошибку ZeroDivisionError:\n\nprint(5 / 0)  # ZeroDivisionError: division by zero",
+                      "simplified_content": "* умножает, / делит числа. Пример: print(3 * 4) выведет 12, print(10 / 4) выведет 2.5.",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Произведение",
+                      "description": "Создайте функцию multiply(a, b), которая возвращает произведение двух чисел.",
+                      "starter_code": "def multiply(a, b):\n    pass\n",
+                      "solution": "def multiply(a, b):\n    return a * b\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Положительные числа",
+                          "assertion_code": "assert multiply(3, 4) == 12",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Ноль",
+                          "assertion_code": "assert multiply(0, 10) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Половина числа",
+                      "description": "Создайте функцию divide_by_two(value), которая возвращает value / 2.",
+                      "starter_code": "def divide_by_two(value):\n    pass\n",
+                      "solution": "def divide_by_two(value):\n    return value / 2\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Четное число",
+                          "assertion_code": "assert divide_by_two(8) == 4",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нечетное число",
+                          "assertion_code": "assert divide_by_two(5) == 2.5",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Переменные",
+          "difficulty": "easy",
+          "order_index": 2,
+          "lessons": [
+            {
+              "title": "Имена и значения",
+              "content": "Урок знакомит со смыслом переменных и правилами именования.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "Создание переменной",
+                  "difficulty": "easy",
+                  "skill_name": "variables",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Переменная хранит значение",
+                      "content": "Переменная — это имя, с которым связывается значение. Имя помогает обращаться к данным повторно.",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Имя студента",
+                      "description": "Создайте функцию student_name(), которая возвращает строку 'Студент'.",
+                      "starter_code": "def student_name():\n    pass\n",
+                      "solution": "def student_name():\n    name = 'Студент'\n    return name\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Точное совпадение",
+                          "assertion_code": "assert student_name() == 'Студент'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Строковый результат",
+                          "assertion_code": "assert isinstance(student_name(), str)",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Возраст",
+                      "description": "Создайте функцию student_age(), которая возвращает число 18.",
+                      "starter_code": "def student_age():\n    pass\n",
+                      "solution": "def student_age():\n    age = 18\n    return age\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Возраст",
+                          "assertion_code": "assert student_age() == 18",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Тип int",
+                          "assertion_code": "assert isinstance(student_age(), int)",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Типы данных",
+                  "difficulty": "easy",
+                  "skill_name": "variables",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Числа, строки, логические значения",
+                      "content": "В Python часто используются целые числа, строки и значения True/False. Тип влияет на доступные операции.",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Булево значение",
+                      "description": "Создайте функцию is_python_fun(), которая возвращает True.",
+                      "starter_code": "def is_python_fun():\n    pass\n",
+                      "solution": "def is_python_fun():\n    return True\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "True",
+                          "assertion_code": "assert is_python_fun() is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Bool",
+                          "assertion_code": "assert isinstance(is_python_fun(), bool)",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Строка и число",
+                      "description": "Создайте функцию pair(), которая возвращает кортеж ('Python', 3).",
+                      "starter_code": "def pair():\n    pass\n",
+                      "solution": "def pair():\n    return ('Python', 3)\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Кортеж",
+                          "assertion_code": "assert pair() == ('Python', 3)",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Длина",
+                          "assertion_code": "assert len(pair()) == 2",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Операции с переменными",
+              "content": "Урок показывает, как использовать переменные в выражениях.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Обновление значения",
+                  "difficulty": "easy",
+                  "skill_name": "variables",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Переопределение переменной",
+                      "content": "Переменной можно присвоить новое значение. Это помогает менять состояние программы.",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Увеличить счетчик",
+                      "description": "Создайте функцию increment(value), которая возвращает value + 1.",
+                      "starter_code": "def increment(value):\n    pass\n",
+                      "solution": "def increment(value):\n    value = value + 1\n    return value\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Проверка 1",
+                          "assertion_code": "assert increment(5) == 6",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Проверка 2",
+                          "assertion_code": "assert increment(-1) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Уменьшить число",
+                      "description": "Создайте функцию decrement(value), которая возвращает value - 1.",
+                      "starter_code": "def decrement(value):\n    pass\n",
+                      "solution": "def decrement(value):\n    value = value - 1\n    return value\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Уменьшение",
+                          "assertion_code": "assert decrement(10) == 9",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Отрицательное значение",
+                          "assertion_code": "assert decrement(0) == -1",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Строковые переменные",
+                  "difficulty": "easy",
+                  "skill_name": "variables",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Конкатенация строк",
+                      "content": "Строки можно объединять с помощью оператора +. Это часто используется для приветствий и сообщений.",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Полное имя",
+                      "description": "Создайте функцию full_name(first, last), которая возвращает first + ' ' + last.",
+                      "starter_code": "def full_name(first, last):\n    pass\n",
+                      "solution": "def full_name(first, last):\n    return first + ' ' + last\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Имя и фамилия",
+                          "assertion_code": "assert full_name('Иван', 'Иванов') == 'Иван Иванов'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Короткие строки",
+                          "assertion_code": "assert full_name('Py', 'thon') == 'Py thon'",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Повтор слова",
+                      "description": "Создайте функцию repeat_word(word), которая возвращает слово дважды через пробел.",
+                      "starter_code": "def repeat_word(word):\n    pass\n",
+                      "solution": "def repeat_word(word):\n    return word + ' ' + word\n",
+                      "difficulty": "easy",
+                      "skill_name": "variables",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Повтор Python",
+                          "assertion_code": "assert repeat_word('Python') == 'Python Python'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Повтор A",
+                          "assertion_code": "assert repeat_word('A') == 'A A'",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Условия",
+          "difficulty": "medium",
+          "order_index": 3,
+          "lessons": [
+            {
+              "title": "Логические выражения",
+              "content": "Урок вводит сравнение значений и логические проверки.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "Сравнение чисел",
+                  "difficulty": "easy",
+                  "skill_name": "conditions",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Операторы сравнения",
+                      "content": "Операторы >, <, == и != позволяют сравнивать значения и получать логический результат.",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Больше ли число",
+                      "description": "Создайте функцию is_greater(a, b), которая возвращает True, если a > b.",
+                      "starter_code": "def is_greater(a, b):\n    pass\n",
+                      "solution": "def is_greater(a, b):\n    return a > b\n",
+                      "difficulty": "easy",
+                      "skill_name": "conditions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "True случай",
+                          "assertion_code": "assert is_greater(5, 2) is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "False случай",
+                          "assertion_code": "assert is_greater(2, 5) is False",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Равны ли числа",
+                      "description": "Создайте функцию is_equal(a, b), которая возвращает True, если a и b равны.",
+                      "starter_code": "def is_equal(a, b):\n    pass\n",
+                      "solution": "def is_equal(a, b):\n    return a == b\n",
+                      "difficulty": "easy",
+                      "skill_name": "conditions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Равные",
+                          "assertion_code": "assert is_equal(4, 4) is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Неравные",
+                          "assertion_code": "assert is_equal(4, 5) is False",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "if и else",
+                  "difficulty": "medium",
+                  "skill_name": "conditions",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Ветвление",
+                      "content": "Конструкция if/else позволяет выбрать одно из двух действий в зависимости от условия.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Четное число",
+                      "description": "Создайте функцию is_even(n), которая возвращает True для четного числа и False иначе.",
+                      "starter_code": "def is_even(n):\n    pass\n",
+                      "solution": "def is_even(n):\n    if n % 2 == 0:\n        return True\n    return False\n",
+                      "difficulty": "medium",
+                      "skill_name": "conditions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Четное",
+                          "assertion_code": "assert is_even(8) is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нечетное",
+                          "assertion_code": "assert is_even(7) is False",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Знак числа",
+                      "description": "Создайте функцию sign(n), которая возвращает 'positive' для n >= 0 и 'negative' иначе.",
+                      "starter_code": "def sign(n):\n    pass\n",
+                      "solution": "def sign(n):\n    if n >= 0:\n        return 'positive'\n    return 'negative'\n",
+                      "difficulty": "medium",
+                      "skill_name": "conditions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Положительное",
+                          "assertion_code": "assert sign(3) == 'positive'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Отрицательное",
+                          "assertion_code": "assert sign(-1) == 'negative'",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Сложные условия",
+              "content": "Урок показывает комбинирование условий и вложенные проверки.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Логические операторы",
+                  "difficulty": "medium",
+                  "skill_name": "conditions",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "and, or, not",
+                      "content": "Логические операторы позволяют объединять несколько условий и строить более сложные проверки.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Между значениями",
+                      "description": "Создайте функцию in_range(n), которая возвращает True, если 1 <= n <= 10.",
+                      "starter_code": "def in_range(n):\n    pass\n",
+                      "solution": "def in_range(n):\n    return 1 <= n <= 10\n",
+                      "difficulty": "medium",
+                      "skill_name": "conditions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "В диапазоне",
+                          "assertion_code": "assert in_range(5) is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Вне диапазона",
+                          "assertion_code": "assert in_range(11) is False",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Доступ разрешен",
+                      "description": "Создайте функцию can_enter(age, has_ticket), которая возвращает True, если age >= 18 и has_ticket истинно.",
+                      "starter_code": "def can_enter(age, has_ticket):\n    pass\n",
+                      "solution": "def can_enter(age, has_ticket):\n    return age >= 18 and has_ticket\n",
+                      "difficulty": "medium",
+                      "skill_name": "conditions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Можно войти",
+                          "assertion_code": "assert can_enter(20, True) is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нельзя войти",
+                          "assertion_code": "assert can_enter(16, True) is False",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Вложенные проверки",
+                  "difficulty": "hard",
+                  "skill_name": "conditions",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "elif и вложенные условия",
+                      "content": "С помощью elif можно обработать несколько вариантов, а вложенные условия уточняют выбор внутри ветки.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Оценка",
+                      "description": "Создайте функцию exam_result(score), которая возвращает 'pass' для score >= 60 и 'fail' иначе.",
+                      "starter_code": "def exam_result(score):\n    pass\n",
+                      "solution": "def exam_result(score):\n    if score >= 60:\n        return 'pass'\n    return 'fail'\n",
+                      "difficulty": "hard",
+                      "skill_name": "conditions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Сдал",
+                          "assertion_code": "assert exam_result(75) == 'pass'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Не сдал",
+                          "assertion_code": "assert exam_result(40) == 'fail'",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Категория возраста",
+                      "description": "Создайте функцию age_group(age), которая возвращает 'child' для age < 18 и 'adult' иначе.",
+                      "starter_code": "def age_group(age):\n    pass\n",
+                      "solution": "def age_group(age):\n    if age < 18:\n        return 'child'\n    return 'adult'\n",
+                      "difficulty": "hard",
+                      "skill_name": "conditions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Ребенок",
+                          "assertion_code": "assert age_group(10) == 'child'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Взрослый",
+                          "assertion_code": "assert age_group(18) == 'adult'",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Циклы",
+          "difficulty": "medium",
+          "order_index": 4,
+          "lessons": [
+            {
+              "title": "Цикл for",
+              "content": "Урок вводит перебор последовательностей и подсчет результатов.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "Перебор диапазона",
+                  "difficulty": "medium",
+                  "skill_name": "loops",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "range и цикл for",
+                      "content": "Функция range помогает перебирать последовательность чисел. Цикл for выполняет блок кода для каждого элемента.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Сумма от 1 до n",
+                      "description": "Создайте функцию sum_to_n(n), которая возвращает сумму чисел от 1 до n включительно.",
+                      "starter_code": "def sum_to_n(n):\n    pass\n",
+                      "solution": "def sum_to_n(n):\n    total = 0\n    for number in range(1, n + 1):\n        total += number\n    return total\n",
+                      "difficulty": "medium",
+                      "skill_name": "loops",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "n=3",
+                          "assertion_code": "assert sum_to_n(3) == 6",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "n=1",
+                          "assertion_code": "assert sum_to_n(1) == 1",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Факториал 4",
+                      "description": "Создайте функцию factorial_four(), которая возвращает факториал числа 4 с помощью цикла.",
+                      "starter_code": "def factorial_four():\n    pass\n",
+                      "solution": "def factorial_four():\n    result = 1\n    for number in range(1, 5):\n        result *= number\n    return result\n",
+                      "difficulty": "medium",
+                      "skill_name": "loops",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Факториал",
+                          "assertion_code": "assert factorial_four() == 24",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Тип результата",
+                          "assertion_code": "assert isinstance(factorial_four(), int)",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Перебор строк",
+                  "difficulty": "medium",
+                  "skill_name": "loops",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Цикл по символам",
+                      "content": "Строку можно перебирать символ за символом. Это удобно для подсчета букв и фильтрации текста.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Подсчет букв",
+                      "description": "Создайте функцию count_letters(text), которая возвращает количество символов в строке через цикл.",
+                      "starter_code": "def count_letters(text):\n    pass\n",
+                      "solution": "def count_letters(text):\n    total = 0\n    for _ in text:\n        total += 1\n    return total\n",
+                      "difficulty": "medium",
+                      "skill_name": "loops",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Python",
+                          "assertion_code": "assert count_letters('Python') == 6",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустая строка",
+                          "assertion_code": "assert count_letters('') == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Собрать строку",
+                      "description": "Создайте функцию join_with_dash(chars), которая соединяет символы списка через '-'.",
+                      "starter_code": "def join_with_dash(chars):\n    pass\n",
+                      "solution": "def join_with_dash(chars):\n    result = ''\n    for index, char in enumerate(chars):\n        if index > 0:\n            result += '-'\n        result += char\n    return result\n",
+                      "difficulty": "medium",
+                      "skill_name": "loops",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Три символа",
+                          "assertion_code": "assert join_with_dash(['a', 'b', 'c']) == 'a-b-c'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Один символ",
+                          "assertion_code": "assert join_with_dash(['x']) == 'x'",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Цикл while",
+              "content": "Урок посвящен циклам с условием и контролю завершения.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Счетчик while",
+                  "difficulty": "medium",
+                  "skill_name": "loops",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Когда использовать while",
+                      "content": "Цикл while работает, пока условие истинно. Важно изменять состояние, чтобы цикл завершился.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Сумма до пяти",
+                      "description": "Создайте функцию while_sum_five(), которая возвращает сумму чисел от 1 до 5 через while.",
+                      "starter_code": "def while_sum_five():\n    pass\n",
+                      "solution": "def while_sum_five():\n    total = 0\n    current = 1\n    while current <= 5:\n        total += current\n        current += 1\n    return total\n",
+                      "difficulty": "medium",
+                      "skill_name": "loops",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Сумма",
+                          "assertion_code": "assert while_sum_five() == 15",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Тип int",
+                          "assertion_code": "assert isinstance(while_sum_five(), int)",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Степень двойки",
+                      "description": "Создайте функцию power_two(limit), которая удваивает 1 limit раз и возвращает результат.",
+                      "starter_code": "def power_two(limit):\n    pass\n",
+                      "solution": "def power_two(limit):\n    value = 1\n    count = 0\n    while count < limit:\n        value *= 2\n        count += 1\n    return value\n",
+                      "difficulty": "medium",
+                      "skill_name": "loops",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Три шага",
+                          "assertion_code": "assert power_two(3) == 8",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Ноль шагов",
+                          "assertion_code": "assert power_two(0) == 1",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Прерывание цикла",
+                  "difficulty": "hard",
+                  "skill_name": "loops",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "break и условие остановки",
+                      "content": "Иногда цикл нужно завершить раньше. Для этого используется break или отдельная логика остановки.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Первое четное",
+                      "description": "Создайте функцию first_even(numbers), которая возвращает первое четное число в списке или None.",
+                      "starter_code": "def first_even(numbers):\n    pass\n",
+                      "solution": "def first_even(numbers):\n    for number in numbers:\n        if number % 2 == 0:\n            return number\n    return None\n",
+                      "difficulty": "hard",
+                      "skill_name": "loops",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Есть четное",
+                          "assertion_code": "assert first_even([1, 3, 4, 6]) == 4",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нет четных",
+                          "assertion_code": "assert first_even([1, 3, 5]) is None",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Подсчет до стоп-слова",
+                      "description": "Создайте функцию count_until_stop(words), которая считает слова до появления 'stop'.",
+                      "starter_code": "def count_until_stop(words):\n    pass\n",
+                      "solution": "def count_until_stop(words):\n    total = 0\n    for word in words:\n        if word == 'stop':\n            break\n        total += 1\n    return total\n",
+                      "difficulty": "hard",
+                      "skill_name": "loops",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Со стоп-словом",
+                          "assertion_code": "assert count_until_stop(['a', 'b', 'stop', 'c']) == 2",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Без стоп-слова",
+                          "assertion_code": "assert count_until_stop(['x', 'y']) == 2",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Списки",
+          "difficulty": "medium",
+          "order_index": 5,
+          "lessons": [
+            {
+              "title": "Основы списков",
+              "content": "Урок посвящен созданию списков и доступу к элементам.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "Создание списка",
+                  "difficulty": "easy",
+                  "skill_name": "lists",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Список как коллекция",
+                      "content": "Список хранит набор элементов в определенном порядке. Индексация начинается с нуля.",
+                      "difficulty": "easy",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Список чисел",
+                      "description": "Создайте функцию make_numbers(), которая возвращает список [1, 2, 3].",
+                      "starter_code": "def make_numbers():\n    pass\n",
+                      "solution": "def make_numbers():\n    return [1, 2, 3]\n",
+                      "difficulty": "easy",
+                      "skill_name": "lists",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Три элемента",
+                          "assertion_code": "assert make_numbers() == [1, 2, 3]",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Тип list",
+                          "assertion_code": "assert isinstance(make_numbers(), list)",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Первый элемент",
+                      "description": "Создайте функцию first_item(items), которая возвращает первый элемент списка.",
+                      "starter_code": "def first_item(items):\n    pass\n",
+                      "solution": "def first_item(items):\n    return items[0]\n",
+                      "difficulty": "easy",
+                      "skill_name": "lists",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Строки",
+                          "assertion_code": "assert first_item(['a', 'b']) == 'a'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Числа",
+                          "assertion_code": "assert first_item([9, 8]) == 9",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Операции со списками",
+                  "difficulty": "medium",
+                  "skill_name": "lists",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "append и len",
+                      "content": "Списки можно расширять и измерять. Метод append добавляет элемент в конец списка.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Добавить элемент",
+                      "description": "Создайте функцию add_item(items, value), которая добавляет value в конец списка и возвращает список.",
+                      "starter_code": "def add_item(items, value):\n    pass\n",
+                      "solution": "def add_item(items, value):\n    items.append(value)\n    return items\n",
+                      "difficulty": "medium",
+                      "skill_name": "lists",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Добавление числа",
+                          "assertion_code": "assert add_item([1, 2], 3) == [1, 2, 3]",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Добавление строки",
+                          "assertion_code": "assert add_item([], 'x') == ['x']",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Длина списка",
+                      "description": "Создайте функцию list_size(items), которая возвращает длину списка.",
+                      "starter_code": "def list_size(items):\n    pass\n",
+                      "solution": "def list_size(items):\n    return len(items)\n",
+                      "difficulty": "medium",
+                      "skill_name": "lists",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Три элемента",
+                          "assertion_code": "assert list_size([1, 2, 3]) == 3",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустой список",
+                          "assertion_code": "assert list_size([]) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Обход списков",
+              "content": "Урок учит находить сумму, максимум и фильтровать элементы списка.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Сумма элементов",
+                  "difficulty": "medium",
+                  "skill_name": "lists",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Агрегация значений",
+                      "content": "Во время прохода по списку можно накапливать сумму, счетчик или другое итоговое значение.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Сумма списка",
+                      "description": "Создайте функцию sum_list(numbers), которая возвращает сумму чисел списка.",
+                      "starter_code": "def sum_list(numbers):\n    pass\n",
+                      "solution": "def sum_list(numbers):\n    total = 0\n    for number in numbers:\n        total += number\n    return total\n",
+                      "difficulty": "medium",
+                      "skill_name": "lists",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Обычный список",
+                          "assertion_code": "assert sum_list([1, 2, 3]) == 6",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустой список",
+                          "assertion_code": "assert sum_list([]) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Максимум",
+                      "description": "Создайте функцию max_item(numbers), которая возвращает максимальный элемент списка.",
+                      "starter_code": "def max_item(numbers):\n    pass\n",
+                      "solution": "def max_item(numbers):\n    current = numbers[0]\n    for number in numbers:\n        if number > current:\n            current = number\n    return current\n",
+                      "difficulty": "medium",
+                      "skill_name": "lists",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Разные числа",
+                          "assertion_code": "assert max_item([1, 5, 3]) == 5",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Отрицательные",
+                          "assertion_code": "assert max_item([-3, -1, -2]) == -1",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Фильтрация списка",
+                  "difficulty": "hard",
+                  "skill_name": "lists",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Выбор элементов по условию",
+                      "content": "Фильтрация позволяет создать новый список только из подходящих элементов исходной коллекции.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Четные числа",
+                      "description": "Создайте функцию even_numbers(numbers), которая возвращает список только из четных чисел.",
+                      "starter_code": "def even_numbers(numbers):\n    pass\n",
+                      "solution": "def even_numbers(numbers):\n    result = []\n    for number in numbers:\n        if number % 2 == 0:\n            result.append(number)\n    return result\n",
+                      "difficulty": "hard",
+                      "skill_name": "lists",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Частично четные",
+                          "assertion_code": "assert even_numbers([1, 2, 3, 4]) == [2, 4]",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Без четных",
+                          "assertion_code": "assert even_numbers([1, 3]) == []",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Длинные слова",
+                      "description": "Создайте функцию long_words(words), которая возвращает слова длиной не меньше 5 символов.",
+                      "starter_code": "def long_words(words):\n    pass\n",
+                      "solution": "def long_words(words):\n    result = []\n    for word in words:\n        if len(word) >= 5:\n            result.append(word)\n    return result\n",
+                      "difficulty": "hard",
+                      "skill_name": "lists",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Есть длинные слова",
+                          "assertion_code": "assert long_words(['кот', 'программа', 'дом']) == ['программа']",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Несколько длинных слов",
+                          "assertion_code": "assert long_words(['python', 'code', 'logic']) == ['python', 'logic']",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Словари",
+          "difficulty": "medium",
+          "order_index": 6,
+          "lessons": [
+            {
+              "title": "Ключи и значения",
+              "content": "Урок знакомит со словарями как структурой хранения пар ключ-значение.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "Создание словаря",
+                  "difficulty": "medium",
+                  "skill_name": "dictionaries",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Структура словаря",
+                      "content": "Словарь хранит данные в виде пар ключ-значение. По ключу можно быстро получить нужную информацию.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Профиль студента",
+                      "description": "Создайте функцию student_profile(), которая возвращает словарь {'name': 'Анна', 'age': 19}.",
+                      "starter_code": "def student_profile():\n    pass\n",
+                      "solution": "def student_profile():\n    return {'name': 'Анна', 'age': 19}\n",
+                      "difficulty": "medium",
+                      "skill_name": "dictionaries",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Словарь профиля",
+                          "assertion_code": "assert student_profile() == {'name': 'Анна', 'age': 19}",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Есть ключ name",
+                          "assertion_code": "assert 'name' in student_profile()",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Получить значение",
+                      "description": "Создайте функцию get_name(profile), которая возвращает значение по ключу 'name'.",
+                      "starter_code": "def get_name(profile):\n    pass\n",
+                      "solution": "def get_name(profile):\n    return profile['name']\n",
+                      "difficulty": "medium",
+                      "skill_name": "dictionaries",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Имя",
+                          "assertion_code": "assert get_name({'name': 'Олег'}) == 'Олег'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Другое имя",
+                          "assertion_code": "assert get_name({'name': 'Ира', 'age': 20}) == 'Ира'",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Изменение словаря",
+                  "difficulty": "medium",
+                  "skill_name": "dictionaries",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Добавление и изменение ключей",
+                      "content": "В словаре можно изменить значение существующего ключа или добавить новый ключ с новым значением.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Добавить оценку",
+                      "description": "Создайте функцию add_grade(profile, grade), которая записывает grade по ключу 'grade' и возвращает словарь.",
+                      "starter_code": "def add_grade(profile, grade):\n    pass\n",
+                      "solution": "def add_grade(profile, grade):\n    profile['grade'] = grade\n    return profile\n",
+                      "difficulty": "medium",
+                      "skill_name": "dictionaries",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Добавление ключа",
+                          "assertion_code": "assert add_grade({'name': 'Анна'}, 5) == {'name': 'Анна', 'grade': 5}",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Перезапись",
+                          "assertion_code": "assert add_grade({'grade': 3}, 4) == {'grade': 4}",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Проверка ключа",
+                      "description": "Создайте функцию has_age(profile), которая возвращает True, если ключ 'age' есть в словаре.",
+                      "starter_code": "def has_age(profile):\n    pass\n",
+                      "solution": "def has_age(profile):\n    return 'age' in profile\n",
+                      "difficulty": "medium",
+                      "skill_name": "dictionaries",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Есть age",
+                          "assertion_code": "assert has_age({'age': 10}) is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нет age",
+                          "assertion_code": "assert has_age({'name': 'Аня'}) is False",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Обход словаря",
+              "content": "Урок показывает использование циклов и методов словаря для анализа данных.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Ключи и суммы",
+                  "difficulty": "medium",
+                  "skill_name": "dictionaries",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Итерация по values",
+                      "content": "Метод values возвращает все значения словаря. Их можно обойти в цикле и посчитать итог.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Сумма значений",
+                      "description": "Создайте функцию sum_scores(scores), которая возвращает сумму всех значений словаря.",
+                      "starter_code": "def sum_scores(scores):\n    pass\n",
+                      "solution": "def sum_scores(scores):\n    total = 0\n    for value in scores.values():\n        total += value\n    return total\n",
+                      "difficulty": "medium",
+                      "skill_name": "dictionaries",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Два значения",
+                          "assertion_code": "assert sum_scores({'a': 2, 'b': 3}) == 5",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустой словарь",
+                          "assertion_code": "assert sum_scores({}) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Список ключей",
+                      "description": "Создайте функцию key_list(data), которая возвращает список ключей словаря.",
+                      "starter_code": "def key_list(data):\n    pass\n",
+                      "solution": "def key_list(data):\n    return list(data.keys())\n",
+                      "difficulty": "medium",
+                      "skill_name": "dictionaries",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Ключи",
+                          "assertion_code": "assert key_list({'x': 1, 'y': 2}) == ['x', 'y']",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустой словарь",
+                          "assertion_code": "assert key_list({}) == []",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Фильтрация словаря",
+                  "difficulty": "hard",
+                  "skill_name": "dictionaries",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Создание нового словаря",
+                      "content": "Можно построить новый словарь из исходного, сохранив только те пары, которые подходят по условию.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Только положительные",
+                      "description": "Создайте функцию positive_entries(data), которая возвращает пары со значением больше 0.",
+                      "starter_code": "def positive_entries(data):\n    pass\n",
+                      "solution": "def positive_entries(data):\n    result = {}\n    for key, value in data.items():\n        if value > 0:\n            result[key] = value\n    return result\n",
+                      "difficulty": "hard",
+                      "skill_name": "dictionaries",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Смешанные значения",
+                          "assertion_code": "assert positive_entries({'a': 1, 'b': -2, 'c': 3}) == {'a': 1, 'c': 3}",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нет положительных",
+                          "assertion_code": "assert positive_entries({'a': -1}) == {}",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Короткие ключи",
+                      "description": "Создайте функцию short_keys(data), которая возвращает словарь только с ключами длиной 1 символ.",
+                      "starter_code": "def short_keys(data):\n    pass\n",
+                      "solution": "def short_keys(data):\n    result = {}\n    for key, value in data.items():\n        if len(key) == 1:\n            result[key] = value\n    return result\n",
+                      "difficulty": "hard",
+                      "skill_name": "dictionaries",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Один и два символа",
+                          "assertion_code": "assert short_keys({'a': 1, 'ab': 2}) == {'a': 1}",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Несколько коротких",
+                          "assertion_code": "assert short_keys({'x': 3, 'y': 4}) == {'x': 3, 'y': 4}",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Функции",
+          "difficulty": "medium",
+          "order_index": 7,
+          "lessons": [
+            {
+              "title": "Определение функций",
+              "content": "Урок знакомит с параметрами, возвращаемыми значениями и переиспользованием кода.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "Параметры функции",
+                  "difficulty": "medium",
+                  "skill_name": "functions",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Аргументы и результат",
+                      "content": "Функция принимает аргументы, выполняет действия и может вернуть результат через return.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Квадрат числа",
+                      "description": "Создайте функцию square(n), которая возвращает квадрат числа.",
+                      "starter_code": "def square(n):\n    pass\n",
+                      "solution": "def square(n):\n    return n * n\n",
+                      "difficulty": "medium",
+                      "skill_name": "functions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Квадрат 4",
+                          "assertion_code": "assert square(4) == 16",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Квадрат 0",
+                          "assertion_code": "assert square(0) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Обратный текст",
+                      "description": "Создайте функцию reverse_text(text), которая возвращает строку в обратном порядке.",
+                      "starter_code": "def reverse_text(text):\n    pass\n",
+                      "solution": "def reverse_text(text):\n    return text[::-1]\n",
+                      "difficulty": "medium",
+                      "skill_name": "functions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Python",
+                          "assertion_code": "assert reverse_text('Python') == 'nohtyP'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустая строка",
+                          "assertion_code": "assert reverse_text('') == ''",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Возврат значений",
+                  "difficulty": "medium",
+                  "skill_name": "functions",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Почему нужен return",
+                      "content": "Команда return завершает выполнение функции и передает результат в место вызова.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Минимум из двух",
+                      "description": "Создайте функцию minimum(a, b), которая возвращает меньшее из двух чисел.",
+                      "starter_code": "def minimum(a, b):\n    pass\n",
+                      "solution": "def minimum(a, b):\n    if a < b:\n        return a\n    return b\n",
+                      "difficulty": "medium",
+                      "skill_name": "functions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Меньшее первое",
+                          "assertion_code": "assert minimum(2, 5) == 2",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Меньшее второе",
+                          "assertion_code": "assert minimum(9, 1) == 1",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Максимум из трех",
+                      "description": "Создайте функцию max_of_three(a, b, c), которая возвращает максимальное число.",
+                      "starter_code": "def max_of_three(a, b, c):\n    pass\n",
+                      "solution": "def max_of_three(a, b, c):\n    result = a\n    if b > result:\n        result = b\n    if c > result:\n        result = c\n    return result\n",
+                      "difficulty": "medium",
+                      "skill_name": "functions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Максимум c",
+                          "assertion_code": "assert max_of_three(1, 3, 5) == 5",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Максимум a",
+                          "assertion_code": "assert max_of_three(9, 3, 5) == 9",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Функции и коллекции",
+              "content": "Урок показывает, как использовать функции для обработки списков и строк.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Функции для списков",
+                  "difficulty": "medium",
+                  "skill_name": "functions",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Выделение повторяющейся логики",
+                      "content": "Функции помогают оформить обработку списка в отдельный переиспользуемый блок кода.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Среднее значение",
+                      "description": "Создайте функцию average(numbers), которая возвращает среднее арифметическое списка.",
+                      "starter_code": "def average(numbers):\n    pass\n",
+                      "solution": "def average(numbers):\n    total = 0\n    for number in numbers:\n        total += number\n    return total / len(numbers)\n",
+                      "difficulty": "medium",
+                      "skill_name": "functions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Три числа",
+                          "assertion_code": "assert average([2, 4, 6]) == 4",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Два числа",
+                          "assertion_code": "assert average([1, 3]) == 2",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Последний элемент",
+                      "description": "Создайте функцию last_item(items), которая возвращает последний элемент списка.",
+                      "starter_code": "def last_item(items):\n    pass\n",
+                      "solution": "def last_item(items):\n    return items[-1]\n",
+                      "difficulty": "medium",
+                      "skill_name": "functions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Числа",
+                          "assertion_code": "assert last_item([1, 2, 3]) == 3",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Строки",
+                          "assertion_code": "assert last_item(['a', 'b']) == 'b'",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Функции для строк",
+                  "difficulty": "hard",
+                  "skill_name": "functions",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Обработка строк",
+                      "content": "Функции для строк помогают нормализовать текст, выделять фрагменты и вычислять характеристики.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Количество гласных",
+                      "description": "Создайте функцию vowel_count(text), которая считает русские гласные в строке.",
+                      "starter_code": "def vowel_count(text):\n    pass\n",
+                      "solution": "def vowel_count(text):\n    vowels = 'аеёиоуыэюяAEIOUYaeiouy'\n    total = 0\n    for char in text.lower():\n        if char in 'аеёиоуыэюя':\n            total += 1\n    return total\n",
+                      "difficulty": "hard",
+                      "skill_name": "functions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Привет",
+                          "assertion_code": "assert vowel_count('привет') == 2",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пусто",
+                          "assertion_code": "assert vowel_count('') == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Нормализация слова",
+                      "description": "Создайте функцию normalize(word), которая удаляет пробелы по краям и переводит строку в нижний регистр.",
+                      "starter_code": "def normalize(word):\n    pass\n",
+                      "solution": "def normalize(word):\n    return word.strip().lower()\n",
+                      "difficulty": "hard",
+                      "skill_name": "functions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Пробелы и регистр",
+                          "assertion_code": "assert normalize('  Python ') == 'python'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Уже нормализовано",
+                          "assertion_code": "assert normalize('код') == 'код'",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Файлы",
+          "difficulty": "hard",
+          "order_index": 8,
+          "lessons": [
+            {
+              "title": "Текстовые данные",
+              "content": "Урок объясняет принципы работы с содержимым файлов на уровне строк и текста.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "Чтение текста",
+                  "difficulty": "medium",
+                  "skill_name": "files",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Файл как набор строк",
+                      "content": "В учебных задачах содержимое файла можно представить одной строкой или списком строк. Это помогает отработать алгоритм без доступа к файловой системе.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Количество строк",
+                      "description": "Создайте функцию line_count(lines), которая возвращает количество строк в списке lines.",
+                      "starter_code": "def line_count(lines):\n    pass\n",
+                      "solution": "def line_count(lines):\n    return len(lines)\n",
+                      "difficulty": "medium",
+                      "skill_name": "files",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Три строки",
+                          "assertion_code": "assert line_count(['a', 'b', 'c']) == 3",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустой список",
+                          "assertion_code": "assert line_count([]) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Первая строка",
+                      "description": "Создайте функцию first_line(lines), которая возвращает первую строку или пустую строку, если список пуст.",
+                      "starter_code": "def first_line(lines):\n    pass\n",
+                      "solution": "def first_line(lines):\n    if not lines:\n        return ''\n    return lines[0]\n",
+                      "difficulty": "medium",
+                      "skill_name": "files",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Есть строки",
+                          "assertion_code": "assert first_line(['one', 'two']) == 'one'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нет строк",
+                          "assertion_code": "assert first_line([]) == ''",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Анализ текстового файла",
+                  "difficulty": "hard",
+                  "skill_name": "files",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Подсчет слов и символов",
+                      "content": "После чтения файла часто считают число строк, слов, символов и ищут конкретные фрагменты текста.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Количество слов",
+                      "description": "Создайте функцию word_count(text), которая возвращает количество слов в строке text.",
+                      "starter_code": "def word_count(text):\n    pass\n",
+                      "solution": "def word_count(text):\n    if text == '':\n        return 0\n    return len(text.split())\n",
+                      "difficulty": "hard",
+                      "skill_name": "files",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Три слова",
+                          "assertion_code": "assert word_count('один два три') == 3",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустая строка",
+                          "assertion_code": "assert word_count('') == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Поиск подстроки",
+                      "description": "Создайте функцию contains_word(text, word), которая возвращает True, если word входит в text.",
+                      "starter_code": "def contains_word(text, word):\n    pass\n",
+                      "solution": "def contains_word(text, word):\n    return word in text\n",
+                      "difficulty": "hard",
+                      "skill_name": "files",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Есть слово",
+                          "assertion_code": "assert contains_word('python code', 'python') is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нет слова",
+                          "assertion_code": "assert contains_word('python code', 'java') is False",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Подготовка данных",
+              "content": "Урок показывает, как преобразовывать содержимое файла к удобному виду.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Очистка строк",
+                  "difficulty": "medium",
+                  "skill_name": "files",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "strip и splitlines",
+                      "content": "Перед анализом данные часто очищают от лишних пробелов и пустых строк.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Очистить строки",
+                      "description": "Создайте функцию clean_lines(lines), которая убирает пробелы по краям каждой строки.",
+                      "starter_code": "def clean_lines(lines):\n    pass\n",
+                      "solution": "def clean_lines(lines):\n    result = []\n    for line in lines:\n        result.append(line.strip())\n    return result\n",
+                      "difficulty": "medium",
+                      "skill_name": "files",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "С пробелами",
+                          "assertion_code": "assert clean_lines([' a ', 'b ']) == ['a', 'b']",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустая строка",
+                          "assertion_code": "assert clean_lines([' ']) == ['']",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Удалить пустые",
+                      "description": "Создайте функцию non_empty(lines), которая возвращает только непустые строки.",
+                      "starter_code": "def non_empty(lines):\n    pass\n",
+                      "solution": "def non_empty(lines):\n    result = []\n    for line in lines:\n        if line != '':\n            result.append(line)\n    return result\n",
+                      "difficulty": "medium",
+                      "skill_name": "files",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "С пустой строкой",
+                          "assertion_code": "assert non_empty(['a', '', 'b']) == ['a', 'b']",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Только пустые",
+                          "assertion_code": "assert non_empty(['', '']) == []",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Подготовка отчета",
+                  "difficulty": "hard",
+                  "skill_name": "files",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Итоговые метрики",
+                      "content": "После обработки данных полезно собрать краткий отчет: число строк, слов или найденных совпадений.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Краткий отчет",
+                      "description": "Создайте функцию report(lines), которая возвращает словарь {'lines': количество строк}.",
+                      "starter_code": "def report(lines):\n    pass\n",
+                      "solution": "def report(lines):\n    return {'lines': len(lines)}\n",
+                      "difficulty": "hard",
+                      "skill_name": "files",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Две строки",
+                          "assertion_code": "assert report(['a', 'b']) == {'lines': 2}",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нет строк",
+                          "assertion_code": "assert report([]) == {'lines': 0}",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Проверка наличия",
+                      "description": "Создайте функцию any_line_contains(lines, part), которая возвращает True, если хотя бы одна строка содержит part.",
+                      "starter_code": "def any_line_contains(lines, part):\n    pass\n",
+                      "solution": "def any_line_contains(lines, part):\n    for line in lines:\n        if part in line:\n            return True\n    return False\n",
+                      "difficulty": "hard",
+                      "skill_name": "files",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Есть совпадение",
+                          "assertion_code": "assert any_line_contains(['abc', 'def'], 'e') is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нет совпадения",
+                          "assertion_code": "assert any_line_contains(['abc'], 'z') is False",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Исключения",
+          "difficulty": "hard",
+          "order_index": 9,
+          "lessons": [
+            {
+              "title": "Обработка ошибок",
+              "content": "Урок объясняет, как перехватывать исключения и сохранять устойчивость программы.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "try и except",
+                  "difficulty": "medium",
+                  "skill_name": "exceptions",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Перехват ошибки",
+                      "content": "Блок try/except позволяет обработать ситуацию, в которой возможна ошибка, и вернуть безопасный результат.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Безопасное деление",
+                      "description": "Создайте функцию safe_divide(a, b), которая возвращает a / b, а при делении на ноль возвращает 0.",
+                      "starter_code": "def safe_divide(a, b):\n    pass\n",
+                      "solution": "def safe_divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return 0\n",
+                      "difficulty": "medium",
+                      "skill_name": "exceptions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Обычное деление",
+                          "assertion_code": "assert safe_divide(8, 2) == 4",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Деление на ноль",
+                          "assertion_code": "assert safe_divide(8, 0) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Безопасное число",
+                      "description": "Создайте функцию safe_int(value), которая пытается преобразовать value в int, а при ошибке возвращает 0.",
+                      "starter_code": "def safe_int(value):\n    pass\n",
+                      "solution": "def safe_int(value):\n    try:\n        return int(value)\n    except ValueError:\n        return 0\n",
+                      "difficulty": "medium",
+                      "skill_name": "exceptions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Корректная строка",
+                          "assertion_code": "assert safe_int('12') == 12",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Некорректная строка",
+                          "assertion_code": "assert safe_int('abc') == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Пользовательские сообщения",
+                  "difficulty": "hard",
+                  "skill_name": "exceptions",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Управление результатом при ошибке",
+                      "content": "Иногда вместо падения программы удобнее вернуть сообщение или специальное значение, понятное пользователю.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Безопасный индекс",
+                      "description": "Создайте функцию safe_get(items, index), которая возвращает элемент списка или строку 'error', если индекс неверный.",
+                      "starter_code": "def safe_get(items, index):\n    pass\n",
+                      "solution": "def safe_get(items, index):\n    try:\n        return items[index]\n    except IndexError:\n        return 'error'\n",
+                      "difficulty": "hard",
+                      "skill_name": "exceptions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Корректный индекс",
+                          "assertion_code": "assert safe_get([1, 2], 1) == 2",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Некорректный индекс",
+                          "assertion_code": "assert safe_get([1, 2], 5) == 'error'",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Проверка ключа словаря",
+                      "description": "Создайте функцию safe_key(data, key), которая возвращает значение по ключу или None, если ключ отсутствует.",
+                      "starter_code": "def safe_key(data, key):\n    pass\n",
+                      "solution": "def safe_key(data, key):\n    try:\n        return data[key]\n    except KeyError:\n        return None\n",
+                      "difficulty": "hard",
+                      "skill_name": "exceptions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Есть ключ",
+                          "assertion_code": "assert safe_key({'x': 1}, 'x') == 1",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нет ключа",
+                          "assertion_code": "assert safe_key({'x': 1}, 'y') is None",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Устойчивые программы",
+              "content": "Урок показывает использование исключений для валидации и обработки ошибок ввода.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Проверка данных",
+                  "difficulty": "medium",
+                  "skill_name": "exceptions",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Защитное программирование",
+                      "content": "Надежная программа проверяет данные и корректно реагирует на неожиданные ситуации.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Положительное число",
+                      "description": "Создайте функцию positive_number(value), которая возвращает value, если оно больше 0, иначе 0.",
+                      "starter_code": "def positive_number(value):\n    pass\n",
+                      "solution": "def positive_number(value):\n    if value > 0:\n        return value\n    return 0\n",
+                      "difficulty": "medium",
+                      "skill_name": "exceptions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Положительное",
+                          "assertion_code": "assert positive_number(5) == 5",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Отрицательное",
+                          "assertion_code": "assert positive_number(-2) == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Надежное преобразование",
+                      "description": "Создайте функцию parse_float(text), которая возвращает float(text), а при ошибке 0.0.",
+                      "starter_code": "def parse_float(text):\n    pass\n",
+                      "solution": "def parse_float(text):\n    try:\n        return float(text)\n    except ValueError:\n        return 0.0\n",
+                      "difficulty": "medium",
+                      "skill_name": "exceptions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Корректное число",
+                          "assertion_code": "assert parse_float('1.5') == 1.5",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Некорректный текст",
+                          "assertion_code": "assert parse_float('text') == 0.0",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Контроль доступа",
+                  "difficulty": "hard",
+                  "skill_name": "exceptions",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Ошибки как часть бизнес-логики",
+                      "content": "Ошибочные входные данные можно обработать внутри функции и вернуть контролируемый ответ вместо аварийного завершения.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Безопасный возраст",
+                      "description": "Создайте функцию age_status(age), которая возвращает 'adult' для age >= 18, 'minor' иначе.",
+                      "starter_code": "def age_status(age):\n    pass\n",
+                      "solution": "def age_status(age):\n    if age >= 18:\n        return 'adult'\n    return 'minor'\n",
+                      "difficulty": "hard",
+                      "skill_name": "exceptions",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Взрослый",
+                          "assertion_code": "assert age_status(20) == 'adult'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Несовершеннолетний",
+                          "assertion_code": "assert age_status(10) == 'minor'",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Проверка пароля",
+                      "description": "Создайте функцию valid_password(password), которая возвращает True, если длина пароля не меньше 6 символов.",
+                      "starter_code": "def valid_password(password):\n    pass\n",
+                      "solution": "def valid_password(password):\n    return len(password) >= 6\n",
+                      "difficulty": "hard",
+                      "skill_name": "exceptions",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Достаточная длина",
+                          "assertion_code": "assert valid_password('secret1') is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Короткий пароль",
+                          "assertion_code": "assert valid_password('123') is False",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Классы и ООП",
+          "difficulty": "hard",
+          "order_index": 10,
+          "lessons": [
+            {
+              "title": "Классы и объекты",
+              "content": "Урок вводит основные идеи объектно-ориентированного программирования.",
+              "order_index": 1,
+              "topics": [
+                {
+                  "title": "Создание класса",
+                  "difficulty": "medium",
+                  "skill_name": "oop",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Класс как шаблон",
+                      "content": "Класс описывает структуру и поведение объектов. Экземпляры класса создаются вызовом имени класса.",
+                      "difficulty": "medium",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Класс Student",
+                      "description": "Создайте класс Student с методом get_name(), который возвращает имя, переданное в конструктор.",
+                      "starter_code": "class Student:\n    def __init__(self, name):\n        pass\n\n    def get_name(self):\n        pass\n",
+                      "solution": "class Student:\n    def __init__(self, name):\n        self.name = name\n\n    def get_name(self):\n        return self.name\n",
+                      "difficulty": "medium",
+                      "skill_name": "oop",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Имя студента",
+                          "assertion_code": "student = Student('Анна')\nassert student.get_name() == 'Анна'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Другое имя",
+                          "assertion_code": "student = Student('Олег')\nassert student.get_name() == 'Олег'",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Класс Counter",
+                      "description": "Создайте класс Counter с методом value(), который возвращает начальное число, переданное в конструктор.",
+                      "starter_code": "class Counter:\n    def __init__(self, start):\n        pass\n\n    def value(self):\n        pass\n",
+                      "solution": "class Counter:\n    def __init__(self, start):\n        self.start = start\n\n    def value(self):\n        return self.start\n",
+                      "difficulty": "medium",
+                      "skill_name": "oop",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Значение 5",
+                          "assertion_code": "counter = Counter(5)\nassert counter.value() == 5",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Значение 0",
+                          "assertion_code": "counter = Counter(0)\nassert counter.value() == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Методы объекта",
+                  "difficulty": "hard",
+                  "skill_name": "oop",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "self и состояние объекта",
+                      "content": "Методы работают с данными конкретного объекта через параметр self и могут изменять состояние экземпляра.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Увеличение счетчика",
+                      "description": "Создайте класс CounterPlus с методом increment(), который увеличивает значение на 1, и методом value().",
+                      "starter_code": "class CounterPlus:\n    def __init__(self, start):\n        pass\n\n    def increment(self):\n        pass\n\n    def value(self):\n        pass\n",
+                      "solution": "class CounterPlus:\n    def __init__(self, start):\n        self.current = start\n\n    def increment(self):\n        self.current += 1\n\n    def value(self):\n        return self.current\n",
+                      "difficulty": "hard",
+                      "skill_name": "oop",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "После увеличения",
+                          "assertion_code": "counter = CounterPlus(1)\ncounter.increment()\nassert counter.value() == 2",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Без увеличения",
+                          "assertion_code": "counter = CounterPlus(3)\nassert counter.value() == 3",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Приветствие объекта",
+                      "description": "Создайте класс Greeter с методом greet(), который возвращает 'Привет, <name>!'.",
+                      "starter_code": "class Greeter:\n    def __init__(self, name):\n        pass\n\n    def greet(self):\n        pass\n",
+                      "solution": "class Greeter:\n    def __init__(self, name):\n        self.name = name\n\n    def greet(self):\n        return f'Привет, {self.name}!'\n",
+                      "difficulty": "hard",
+                      "skill_name": "oop",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Анна",
+                          "assertion_code": "greeter = Greeter('Анна')\nassert greeter.greet() == 'Привет, Анна!'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Иван",
+                          "assertion_code": "greeter = Greeter('Иван')\nassert greeter.greet() == 'Привет, Иван!'",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Инкапсуляция и композиция",
+              "content": "Урок показывает, как объединять данные и поведение внутри объектов.",
+              "order_index": 2,
+              "topics": [
+                {
+                  "title": "Состояние объекта",
+                  "difficulty": "hard",
+                  "skill_name": "oop",
+                  "order_index": 1,
+                  "theory_blocks": [
+                    {
+                      "title": "Хранение состояния",
+                      "content": "Объект может хранить внутренние данные и изменять их через методы.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Кошелек",
+                      "description": "Создайте класс Wallet с методом deposit(amount), который увеличивает баланс, и методом balance().",
+                      "starter_code": "class Wallet:\n    def __init__(self, start):\n        pass\n\n    def deposit(self, amount):\n        pass\n\n    def balance(self):\n        pass\n",
+                      "solution": "class Wallet:\n    def __init__(self, start):\n        self._balance = start\n\n    def deposit(self, amount):\n        self._balance += amount\n\n    def balance(self):\n        return self._balance\n",
+                      "difficulty": "hard",
+                      "skill_name": "oop",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Пополнение",
+                          "assertion_code": "wallet = Wallet(10)\nwallet.deposit(5)\nassert wallet.balance() == 15",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Без пополнения",
+                          "assertion_code": "wallet = Wallet(7)\nassert wallet.balance() == 7",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Лампочка",
+                      "description": "Создайте класс Lamp с методом turn_on(), который включает лампу, и методом is_on().",
+                      "starter_code": "class Lamp:\n    def __init__(self):\n        pass\n\n    def turn_on(self):\n        pass\n\n    def is_on(self):\n        pass\n",
+                      "solution": "class Lamp:\n    def __init__(self):\n        self.state = False\n\n    def turn_on(self):\n        self.state = True\n\n    def is_on(self):\n        return self.state\n",
+                      "difficulty": "hard",
+                      "skill_name": "oop",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "После включения",
+                          "assertion_code": "lamp = Lamp()\nlamp.turn_on()\nassert lamp.is_on() is True",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Сразу после создания",
+                          "assertion_code": "lamp = Lamp()\nassert lamp.is_on() is False",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "Композиция объектов",
+                  "difficulty": "hard",
+                  "skill_name": "oop",
+                  "order_index": 2,
+                  "theory_blocks": [
+                    {
+                      "title": "Объекты внутри объектов",
+                      "content": "Композиция означает, что один объект использует другой внутри себя. Так моделируются более сложные системы.",
+                      "difficulty": "hard",
+                      "order_index": 1
+                    }
+                  ],
+                  "exercises": [
+                    {
+                      "title": "Команда курса",
+                      "description": "Создайте класс CourseGroup с методом size(), который возвращает количество переданных имен студентов.",
+                      "starter_code": "class CourseGroup:\n    def __init__(self, students):\n        pass\n\n    def size(self):\n        pass\n",
+                      "solution": "class CourseGroup:\n    def __init__(self, students):\n        self.students = students\n\n    def size(self):\n        return len(self.students)\n",
+                      "difficulty": "hard",
+                      "skill_name": "oop",
+                      "order_index": 1,
+                      "test_cases": [
+                        {
+                          "title": "Два студента",
+                          "assertion_code": "group = CourseGroup(['Анна', 'Иван'])\nassert group.size() == 2",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Нет студентов",
+                          "assertion_code": "group = CourseGroup([])\nassert group.size() == 0",
+                          "order_index": 2
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Каталог задач",
+                      "description": "Создайте класс ExerciseCatalog с методом first_title(), который возвращает первый заголовок из списка или пустую строку.",
+                      "starter_code": "class ExerciseCatalog:\n    def __init__(self, titles):\n        pass\n\n    def first_title(self):\n        pass\n",
+                      "solution": "class ExerciseCatalog:\n    def __init__(self, titles):\n        self.titles = titles\n\n    def first_title(self):\n        if not self.titles:\n            return ''\n        return self.titles[0]\n",
+                      "difficulty": "hard",
+                      "skill_name": "oop",
+                      "order_index": 2,
+                      "test_cases": [
+                        {
+                          "title": "Есть заголовки",
+                          "assertion_code": "catalog = ExerciseCatalog(['Задача 1', 'Задача 2'])\nassert catalog.first_title() == 'Задача 1'",
+                          "order_index": 1
+                        },
+                        {
+                          "title": "Пустой каталог",
+                          "assertion_code": "catalog = ExerciseCatalog([])\nassert catalog.first_title() == ''",
+                          "order_index": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

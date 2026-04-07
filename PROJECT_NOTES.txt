@@ -1,0 +1,215 @@
+# Adaptive Python Learning System
+
+Production-ready full-stack LMS для дипломного проекта по адаптивному обучению Python.
+
+## Что реализовано
+
+Система построена по ITS-подходу:
+
+- диагностика знаний перед стартом (`/diagnostic-tests/active`, `/diagnostic-tests/{id}/submit`)
+- адаптивная траектория по `skill_score`
+- анализ ошибок и попыток в `POST /submit`
+- персональные рекомендации следующего шага
+- подсказки после неудачных попыток (`POST /hint`)
+- адаптивные объяснения темы (`POST /explain`)
+
+Учебная иерархия:
+
+`Course -> Module -> Lesson -> Topic -> Theory -> Exercise`
+
+При первичном seed автоматически создаётся **Модуль 0 — Введение** с 5 уроками, затем доступна входная диагностика.
+
+## Технологический стек
+
+### Backend
+
+- FastAPI
+- SQLAlchemy 2
+- Alembic
+- PostgreSQL
+
+### Frontend
+
+- React 18 + TypeScript
+- Vite
+- React Router
+- React Query
+- Axios
+- Monaco Editor
+- TailwindCSS
+
+### Infra
+
+- docker-compose (`postgres`, `backend`, `frontend`)
+
+## Архитектура backend
+
+```text
+backend/app/
+├── core/                 # config + database
+├── models/               # ORM модели
+├── repositories/         # слой доступа к данным
+├── services/             # бизнес-логика (course/adaptive/diagnostic/hint/explain)
+├── routers/              # API endpoints
+├── schemas/              # Pydantic контракты
+└── data/                 # seed-данные курса и диагностики
+```
+
+## Схема данных
+
+### Курс
+
+- `courses`
+- `modules`
+- `lessons`
+- `topics`
+- `theory_blocks`
+- `exercises`
+- `test_cases`
+
+### Пользователь и адаптация
+
+- `users`
+- `submissions`
+- `user_skills`
+- `progress`
+
+### Диагностика
+
+- `diagnostic_tests`
+- `diagnostic_questions`
+- `diagnostic_answers`
+- `skill_mapping`
+
+## Педагогическая логика
+
+### 1) Диагностика
+
+Диагностический тест содержит 18 вопросов по навыкам:
+
+- variables
+- conditions
+- loops
+- strings
+- lists
+- functions
+
+После отправки считается `diagnostic_score` по каждому навыку.
+
+### 2) Обновление навыков
+
+В `user_skills` хранятся:
+
+- `diagnostic_score`
+- `exercise_score`
+- `skill_score`
+- `skill_level`
+
+Формула:
+
+`skill_score = 0.4 * diagnostic_score + 0.6 * exercise_score`
+
+Уровни:
+
+- `0.0 - 0.3` -> `beginner`
+- `0.3 - 0.6` -> `basic`
+- `0.6 - 0.8` -> `intermediate`
+- `0.8 - 1.0` -> `advanced`
+
+### 3) Адаптация после упражнения
+
+`POST /submit` выполняет:
+
+1. проверку безопасности кода
+2. запуск в изолированном окружении
+3. выполнение `test_cases`
+4. сохранение `submission`
+5. обновление `skill_score`
+6. обновление `progress`
+7. формирование рекомендации следующего шага
+
+Правила:
+
+- решено с 1 попытки -> рост `exercise_score`
+- решено после нескольких попыток -> минимальная коррекция
+- не решено -> снижение `exercise_score`
+- после 3 неудач -> доступна подсказка
+- после 5 неудач -> рекомендация открыть упрощённое объяснение
+
+## API
+
+### Публичные маршруты
+
+- `GET /courses`
+- `GET /modules/{course_id}`
+- `GET /lessons/{module_id}`
+- `GET /lessons/content/{lesson_id}`
+- `GET /exercises/{lesson_id}`
+
+- `POST /register_user`
+- `POST /users/{user_id}/complete_intro`
+
+- `GET /diagnostic-tests/active`
+- `POST /diagnostic-tests/{test_id}/submit`
+
+- `POST /submit`
+- `POST /hint`
+- `POST /explain`
+- `POST /recommend_next_module`
+
+- `GET /progress/{user_id}`
+- `GET /health`
+
+## Миграции
+
+- `0001_initial_schema.py` — базовая схема
+- `0002_diagnostic_and_progress.py` — диагностика, progress и расширение user/user_skills/theory_blocks
+
+## Запуск через Docker
+
+```bash
+docker-compose up --build
+```
+
+Доступ:
+
+- frontend: `http://localhost:5173`
+- backend: `http://localhost:8000`
+- docs: `http://localhost:8000/docs`
+
+Backend startup:
+
+1. `alembic upgrade head`
+2. seed курса
+3. seed диагностики
+4. запуск FastAPI
+
+## Локальная проверка
+
+Backend syntax check:
+
+```bash
+cd backend
+python3 -m compileall app
+```
+
+Backend tests:
+
+```bash
+cd backend
+python3 -m pytest
+```
+
+Frontend build:
+
+```bash
+cd frontend
+npm run build
+```
+
+## Примечание по окружению
+
+Если локально отсутствуют `pytest` и frontend зависимости (`typescript`, `vite`), сначала установите зависимости проекта:
+
+- backend: `pip install -r backend/requirements.txt`
+- frontend: `npm install` в `frontend/`

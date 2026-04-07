@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #111827;
+  background: #f9fafb;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@layer components {
+  .portal-page {
+    @apply min-h-screen bg-gray-50 text-gray-900;
+  }
+
+  .portal-panel {
+    @apply rounded-3xl border-2 border-gray-300 bg-white shadow-[0_18px_48px_rgba(15,23,42,0.05)];
+  }
+
+  .portal-wireframe {
+    @apply rounded-2xl border border-gray-300 bg-white;
+  }
+
+  .portal-heading {
+    @apply text-3xl font-bold text-gray-900;
+  }
+
+  .portal-muted {
+    @apply text-base text-gray-600;
+  }
+
+  .portal-button-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .portal-button-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-50;
+  }
+
+  .portal-input {
+    @apply w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100;
+  }
+
+  .edu-panel {
+    @apply rounded-3xl border border-gray-300 bg-white shadow-[0_18px_48px_rgba(15,23,42,0.05)];
+  }
+
+  .edu-section-title {
+    @apply text-xl font-semibold tracking-tight text-gray-900;
+  }
+
+  .edu-muted {
+    @apply text-sm leading-6 text-gray-600;
+  }
+
+  .edu-tab {
+    @apply inline-flex items-center rounded-lg px-4 py-2 text-sm font-medium transition;
+  }
+
+  .edu-tab-active {
+    @apply bg-primary text-white;
+  }
+
+  .edu-tab-inactive {
+    @apply bg-slate-100 text-slate-700 hover:bg-slate-200;
+  }
+}
