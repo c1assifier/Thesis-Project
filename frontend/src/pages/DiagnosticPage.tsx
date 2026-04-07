@@ -15,6 +15,18 @@ import {
 } from "../services/api";
 import { getStoredUser, saveStoredUser } from "../services/userSession";
 
+function skillLabel(skillName: string): string {
+  const labels: Record<string, string> = {
+    variables: "Переменные",
+    conditions: "Условия",
+    loops: "Циклы",
+    strings: "Строки",
+    lists: "Списки",
+    functions: "Функции"
+  };
+  return labels[skillName] ?? skillName;
+}
+
 export default function DiagnosticPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -48,6 +60,16 @@ export default function DiagnosticPage() {
     () => Object.values(selectedAnswers).filter((item) => item.trim().length > 0).length,
     [selectedAnswers]
   );
+  const diagnosticAverage = useMemo(() => {
+    const skillScores = progressQuery.data?.skill_scores ?? [];
+    if (skillScores.length === 0) {
+      return 0;
+    }
+    const total = skillScores.reduce((sum, skill) => sum + skill.diagnostic_score, 0);
+    return Math.round((total / skillScores.length) * 100);
+  }, [progressQuery.data?.skill_scores]);
+  const shouldLockBaseDiagnostic = !isAdaptiveFlow && progressQuery.data?.diagnostic_completed === true;
+  const shouldWaitForBaseDiagnosticStatus = !isAdaptiveFlow && progressQuery.isLoading && !progressQuery.data;
 
   const submitMutation = useMutation({
     mutationFn: async () => {
@@ -117,14 +139,71 @@ export default function DiagnosticPage() {
 
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-primary">Диагностика</p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-text">
-            {diagnosticQuery.data?.title ?? "Загрузка диагностики..."}
+            {shouldLockBaseDiagnostic ? "Статистика стартовой диагностики" : diagnosticQuery.data?.title ?? "Загрузка диагностики..."}
           </h1>
           <p className="mt-3 text-sm leading-7 text-muted">
-            {diagnosticQuery.data?.description ?? "Получаем вопросы и формируем профиль освоения курса."}
+            {shouldLockBaseDiagnostic
+              ? "Базовый диагностический тест уже завершён. Ниже сохранены итоговые показатели по навыкам и текущему уровню подготовки."
+              : diagnosticQuery.data?.description ?? "Получаем вопросы и формируем профиль освоения курса."}
           </p>
         </div>
 
-        {diagnosticQuery.data ? (
+        {shouldWaitForBaseDiagnosticStatus ? (
+          <div className="edu-panel p-6 text-sm text-muted">Проверяем статус диагностики...</div>
+        ) : shouldLockBaseDiagnostic ? (
+          <div className="space-y-4">
+            <section className="edu-panel border-emerald-200 bg-emerald-50 p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">Диагностика уже завершена</p>
+              <h2 className="mt-2 text-2xl font-semibold text-emerald-950">Повторное прохождение закрыто</h2>
+              <p className="mt-3 text-sm leading-7 text-emerald-900">
+                Базовый диагностический тест уже сохранён в вашем профиле. Эта вкладка теперь показывает только статистику по стартовой
+                диагностике и текущему уровню навыков.
+              </p>
+            </section>
+
+            <section className="edu-panel p-6">
+              <h2 className="edu-section-title">Статистика диагностики</h2>
+              <div className="mt-4 grid gap-4 md:grid-cols-3">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm text-muted">Диагностика</p>
+                  <p className="mt-2 text-2xl font-semibold text-text">Завершена</p>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm text-muted">Средний балл по навыкам</p>
+                  <p className="mt-2 text-2xl font-semibold text-text">{diagnosticAverage}%</p>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm text-muted">Статус доступа</p>
+                  <p className="mt-2 text-2xl font-semibold text-text">Курс открыт</p>
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-3 md:grid-cols-2">
+                {(progressQuery.data?.skill_scores ?? []).map((skill) => (
+                  <div key={skill.skill_name} className="rounded-lg border border-slate-200 bg-white p-4">
+                    <p className="text-sm font-semibold text-text">{skillLabel(skill.skill_name)}</p>
+                    <p className="mt-1 text-sm text-muted">
+                      Диагностика: {Math.round(skill.diagnostic_score * 100)}% • Итоговый уровень: {skill.skill_level}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link to="/diagnostic/result" className="inline-flex rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-text hover:bg-slate-50">
+                  Открыть экран результата
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => navigate("/")}
+                  className="inline-flex rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                >
+                  Продолжить обучение
+                </button>
+              </div>
+            </section>
+          </div>
+        ) : diagnosticQuery.data ? (
           <div className="space-y-4">
             {diagnosticQuery.data.questions.map((question, index) => (
               <article key={question.id} className="edu-panel p-5">

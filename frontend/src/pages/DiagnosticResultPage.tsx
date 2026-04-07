@@ -41,6 +41,11 @@ export default function DiagnosticResultPage() {
     }
   }, []);
 
+  const fallbackSkillScores = progressQuery.data?.skill_scores ?? [];
+  const fallbackAverage = fallbackSkillScores.length
+    ? Math.round((fallbackSkillScores.reduce((sum, skill) => sum + skill.diagnostic_score, 0) / fallbackSkillScores.length) * 100)
+    : 0;
+
   if (!user) {
     return (
       <div className="edu-panel p-6">
@@ -87,10 +92,30 @@ export default function DiagnosticResultPage() {
               ))}
             </div>
           </section>
+        ) : progressQuery.data?.diagnostic_completed ? (
+          <section className="edu-panel p-6">
+            <h2 className="edu-section-title">Сохранённая статистика диагностики</h2>
+            <p className="mt-3 text-sm text-muted">
+              Детальный ответ по вопросам недоступен в текущей сессии, но итог диагностики сохранён в профиле. Средний балл по навыкам:
+              {" "}
+              {fallbackAverage}%.
+            </p>
+
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              {fallbackSkillScores.map((skill) => (
+                <div key={skill.skill_name} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+                  <p className="text-sm font-semibold text-text">{skillLabel(skill.skill_name)}</p>
+                  <p className="mt-1 text-sm text-muted">
+                    Диагностика: {Math.round(skill.diagnostic_score * 100)}% • Текущий уровень: {skill.skill_level}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
         ) : (
           <section className="edu-panel p-6">
             <p className="text-sm text-muted">
-              Детальный результат не найден в текущей сессии, но диагностика сохранена. Можно продолжить обучение.
+              Детальный результат ещё не найден. Завершите диагностику, чтобы увидеть сводку по баллам и навыкам.
             </p>
           </section>
         )}
@@ -98,7 +123,7 @@ export default function DiagnosticResultPage() {
         <div className="edu-panel p-5">
           <div className="flex flex-wrap gap-3">
             <Link to="/diagnostic" className="inline-flex rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-text hover:bg-slate-50">
-              Пройти снова
+              К статистике диагностики
             </Link>
             <button
               type="button"
