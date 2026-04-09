@@ -42,6 +42,23 @@ export default function ModulePage() {
     return <div className="portal-panel p-6 text-sm text-gray-600">Загрузка деталей модуля...</div>;
   }
 
+  if (moduleQuery.data.status === "locked") {
+    return (
+      <div className="portal-panel max-w-3xl p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">Модуль заблокирован</p>
+        <h1 className="mt-2 text-2xl font-semibold text-gray-900">{moduleQuery.data.title}</h1>
+        <p className="mt-3 text-sm leading-7 text-gray-700">
+          Этот модуль пока недоступен. Сначала завершите предыдущий модуль, после чего доступ откроется автоматически.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link to="/course" className="inline-flex rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-slate-50">
+            Вернуться к курсу
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   const adaptiveModuleStatus =
     adaptivePathQuery.data?.modules.find((item) => item.module_id === parsedModuleId)?.status ?? "not_started";
 

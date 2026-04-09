@@ -30,6 +30,13 @@ function cardClassName(status: string): string {
   return "border-gray-300 bg-white";
 }
 
+function cardInteractiveClassName(status: string): string {
+  if (status === "locked") {
+    return "cursor-not-allowed";
+  }
+  return "cursor-pointer hover:shadow-sm";
+}
+
 export default function CourseStructureView({ course }: { course: PortalCourseStructure }) {
   return (
     <PortalPanel className="p-6">
@@ -43,19 +50,46 @@ export default function CourseStructureView({ course }: { course: PortalCourseSt
         </div>
 
         <div className="grid gap-3 md:grid-cols-2">
-          {course.modules.map((module) => (
-            <Link key={module.id} to={`/modules/${module.id}`} className={`rounded-xl border-2 p-4 transition hover:shadow-sm ${cardClassName(module.status)}`}>
-              <div className="mb-3 flex items-start justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  {iconForStatus(module.status)}
-                  <span className="font-semibold text-gray-900">{module.title}</span>
+          {course.modules.map((module) => {
+            const cardContent = (
+              <>
+                <div className="mb-3 flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    {iconForStatus(module.status)}
+                    <span className="font-semibold text-gray-900">{module.title}</span>
+                  </div>
+                  <PortalStatusBadge status={module.status}>{module.badge}</PortalStatusBadge>
                 </div>
-                <PortalStatusBadge status={module.status}>{module.badge}</PortalStatusBadge>
-              </div>
-              <PortalProgressBar value={module.progress_percent} className="mb-2" />
-              <div className="text-sm text-gray-600">{module.progress_label}</div>
-            </Link>
-          ))}
+                <PortalProgressBar value={module.progress_percent} className="mb-2" />
+                <div className="text-sm text-gray-600">{module.progress_label}</div>
+                {module.status === "locked" ? (
+                  <div className="mt-3 text-xs font-medium text-gray-500">Сначала завершите предыдущий модуль</div>
+                ) : null}
+              </>
+            );
+
+            if (module.status === "locked") {
+              return (
+                <div
+                  key={module.id}
+                  aria-disabled="true"
+                  className={`rounded-xl border-2 p-4 transition ${cardClassName(module.status)} ${cardInteractiveClassName(module.status)}`}
+                >
+                  {cardContent}
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={module.id}
+                to={`/modules/${module.id}`}
+                className={`rounded-xl border-2 p-4 transition ${cardClassName(module.status)} ${cardInteractiveClassName(module.status)}`}
+              >
+                {cardContent}
+              </Link>
+            );
+          })}
         </div>
       </PortalWireframe>
     </PortalPanel>

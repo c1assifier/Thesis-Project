@@ -209,25 +209,29 @@ export default function LessonPage() {
           </div>
           {isLastLesson ? (
             <div className="mt-4 rounded-xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-lime-50 p-4">
-              <p className="text-sm font-semibold text-emerald-800">Финальный урок модуля</p>
-              <p className="mt-1 text-sm text-emerald-900">
-                Вы дошли до последнего урока. Зафиксируйте завершение модуля, чтобы он подсветился как выполненный.
-              </p>
-              <div className="mt-3 flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => completeModuleMutation.mutate()}
-                  disabled={completeModuleMutation.isPending || isModuleCompleted || !user}
-                  className={`rounded-lg px-4 py-2 text-sm font-semibold text-white transition ${
-                    isModuleCompleted ? "bg-emerald-600" : "bg-emerald-600 hover:bg-emerald-700"
-                  } disabled:cursor-not-allowed disabled:opacity-70`}
-                >
-                  {isModuleCompleted ? "Модуль завершён" : completeModuleMutation.isPending ? "Сохраняем..." : "Завершить модуль"}
-                </button>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold text-emerald-800">Финальный урок модуля</p>
+                  <p className="mt-1 text-sm text-emerald-900">
+                    Вы дошли до последнего урока. Зафиксируйте завершение модуля, чтобы перейти дальше по курсу.
+                  </p>
+                </div>
                 {isModuleCompleted ? (
                   <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700">
                     Выполнен
                   </span>
+                ) : null}
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                {!isModuleCompleted ? (
+                  <button
+                    type="button"
+                    onClick={() => completeModuleMutation.mutate()}
+                    disabled={completeModuleMutation.isPending || !user}
+                    className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {completeModuleMutation.isPending ? "Сохраняем..." : "Завершить модуль"}
+                  </button>
                 ) : null}
                 <Link
                   to="/course"
