@@ -8,7 +8,8 @@ class Settings(BaseSettings):
     llm_provider: str = "ollama"
     ollama_url: str = "http://localhost:11434"
     ollama_model: str = "llama3"
-    cors_origins: str = "http://localhost:5173,http://frontend:5173"
+    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173,http://frontend:5173"
+    cors_origin_regex: str | None = None
     seed_data_path: str = "app/data/course_seed.json"
     diagnostic_seed_data_path: str = "app/data/diagnostic_seed.json"
 
