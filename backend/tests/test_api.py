@@ -2,6 +2,22 @@ from app.models import DiagnosticQuestion, DiagnosticTest, ModuleProgress, Progr
 from conftest import TestingSessionLocal
 
 
+def test_security_headers_present_on_api_response(client):
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert "content-security-policy" in response.headers
+    assert response.headers["x-frame-options"] == "DENY"
+    assert response.headers["x-content-type-options"] == "nosniff"
+
+
+def test_security_headers_present_on_docs_response(client):
+    response = client.get("/docs")
+    assert response.status_code == 200
+    assert "content-security-policy" in response.headers
+    assert response.headers["x-frame-options"] == "DENY"
+    assert response.headers["x-content-type-options"] == "nosniff"
+
+
 def test_course_listing(client):
     response = client.get("/courses")
     assert response.status_code == 200
@@ -298,6 +314,30 @@ def test_explain_endpoint(client):
     assert payload["source"] == "backend"
     assert isinstance(payload["text"], str)
     assert len(payload["text"]) > 0
+
+
+def test_csp_script_src_has_no_unsafe_directives(client):
+    response = client.get("/health")
+    csp = response.headers.get("content-security-policy", "")
+    parts = {d.strip().split()[0]: d.strip() for d in csp.split(";") if d.strip()}
+    script_src = parts.get("script-src", "")
+    assert "'unsafe-inline'" not in script_src, "script-src must not contain unsafe-inline"
+    assert "'unsafe-eval'" not in script_src, "script-src must not contain unsafe-eval"
+
+
+def test_referrer_policy_header_present(client):
+    response = client.get("/health")
+    assert "referrer-policy" in response.headers
+    assert response.headers["referrer-policy"] == "strict-origin-when-cross-origin"
+
+
+def test_permissions_policy_header_present(client):
+    response = client.get("/health")
+    assert "permissions-policy" in response.headers
+    pp = response.headers["permissions-policy"]
+    assert "geolocation=()" in pp
+    assert "microphone=()" in pp
+    assert "camera=()" in pp
 
 
 def test_complete_module_marks_progress(client):

@@ -11,3 +11,4 @@ postgres_data/
 test.db
 *.md
 !README.md
+!SECURITY.md

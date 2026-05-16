@@ -10,6 +10,18 @@ class Settings(BaseSettings):
     ollama_model: str = "llama3"
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173,http://frontend:5173"
     cors_origin_regex: str | None = None
+    content_security_policy: str = (
+        "default-src 'self'; "
+        "script-src 'self' https://cdn.jsdelivr.net; "
+        "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
+        "img-src 'self' data: https://fastapi.tiangolo.com; "
+        "font-src 'self' data: https://cdn.jsdelivr.net; "
+        "connect-src 'self'; "
+        "object-src 'none'; "
+        "base-uri 'self'; "
+        "frame-ancestors 'none'; "
+        "form-action 'self'"
+    )
     seed_data_path: str = "app/data/course_seed.json"
     diagnostic_seed_data_path: str = "app/data/diagnostic_seed.json"
 

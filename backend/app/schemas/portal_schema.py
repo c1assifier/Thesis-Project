@@ -44,6 +44,8 @@ class PortalCourseModuleRead(BaseModel):
     progress_percent: int
     progress_label: str
     badge: str
+    # Адаптивность: сколько уроков уже знакомо из диагностики
+    mastered_lessons_count: int = 0
 
 
 class PortalCourseStructureRead(BaseModel):
@@ -71,6 +73,8 @@ class PortalChecklistItemRead(BaseModel):
     title: str
     completed: bool
     linked_lesson_id: int | None = None
+    # Адаптивность: тема/задача знакома из диагностики
+    known_from_diagnostic: bool = False
 
 
 class PortalModuleDetailsRead(BaseModel):

@@ -1,4 +1,7 @@
-import Editor from "@monaco-editor/react";
+import CodeMirror from "@uiw/react-codemirror";
+import { python } from "@codemirror/lang-python";
+import { githubLight } from "@uiw/codemirror-theme-github";
+import { EditorView } from "@codemirror/view";
 
 import type { Exercise } from "../services/api";
 
@@ -12,6 +15,14 @@ type Props = {
   isHintLoading: boolean;
 };
 
+const editorTheme = EditorView.theme({
+  "&": { fontSize: "15px" },
+  ".cm-content": { padding: "16px 0", lineHeight: "22px" },
+  ".cm-scroller": {
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+  },
+});
+
 export default function EditorPanel({ exercise, code, onChange, onRun, onHint, isRunning, isHintLoading }: Props) {
   return (
     <section className="edu-panel overflow-hidden">
@@ -21,18 +32,23 @@ export default function EditorPanel({ exercise, code, onChange, onRun, onHint, i
         <p className="mt-2 text-sm leading-7 text-slate-700">{exercise.description}</p>
       </div>
 
-      <Editor
-        height="520px"
-        defaultLanguage="python"
-        theme="vs-light"
+      <CodeMirror
         value={code}
-        onChange={(value) => onChange(value ?? "")}
-        options={{
-          minimap: { enabled: false },
-          fontSize: 15,
-          lineHeight: 22,
-          scrollBeyondLastLine: false,
-          padding: { top: 16 }
+        height="520px"
+        extensions={[python(), editorTheme]}
+        theme={githubLight}
+        onChange={(value) => onChange(value)}
+        basicSetup={{
+          lineNumbers: true,
+          foldGutter: false,
+          dropCursor: false,
+          allowMultipleSelections: false,
+          indentOnInput: true,
+          bracketMatching: true,
+          closeBrackets: true,
+          autocompletion: true,
+          highlightActiveLine: true,
+          highlightSelectionMatches: false,
         }}
       />
 
