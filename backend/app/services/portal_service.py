@@ -17,6 +17,9 @@ from app.schemas.portal_schema import (
     PortalRecommendationRead,
 )
 
+# Порог диагностического балла, при котором навык считается "знакомым"
+MASTERY_THRESHOLD = 0.7
+
 _STATUS_BADGE = {
     "completed": "Завершено",
     "in_progress": "В процессе",
@@ -47,7 +50,10 @@ class PortalService:
         user = self.sub_repo.get_user(user_id)
         student_name = user.name if user else "Студент"
 
-        portal_modules = self._build_portal_modules(user_id)
+        # Единый словарь навыков — используется и для модулей, и для деталей
+        user_skill_map = self._get_user_skill_map(user_id)
+
+        portal_modules = self._build_portal_modules(user_id, user_skill_map)
         completed_count = self.sub_repo.count_completed_modules(user_id)
         total_modules = self.sub_repo.count_modules()
         solved_tasks = self.sub_repo.get_completed_exercises_count(user_id)
@@ -120,7 +126,11 @@ class PortalService:
         total_lessons = len(lessons)
         progress_pct = round(completed_lessons / total_lessons * 100) if total_lessons else 0
 
-        theory_items, practice_items = self._build_checklist_items(user_id, db_module.id)
+        # Передаём карту навыков для адаптивной разметки уроков
+        user_skill_map = self._get_user_skill_map(user_id)
+        theory_items, practice_items = self._build_checklist_items(
+            user_id, db_module.id, user_skill_map
+        )
 
         badge = _STATUS_BADGE.get(status, status)
         _ACTION_LABELS = {
@@ -154,10 +164,56 @@ class PortalService:
         )
 
     # ------------------------------------------------------------------ #
+    #  Adaptive helpers                                                    #
+    # ------------------------------------------------------------------ #
+
+    def _get_user_skill_map(self, user_id: int) -> dict[str, float]:
+        """
+        Возвращает словарь skill_name → diagnostic_score для всех навыков пользователя.
+        Используется для определения, что юзер уже знает из входного тестирования.
+        """
+        skill_scores = self.sub_repo.list_user_skill_scores(user_id)
+        return {s.skill_name: s.diagnostic_score for s in skill_scores}
+
+    def _is_lesson_known_from_diagnostic(
+        self, lesson_id: int, user_skill_map: dict[str, float]
+    ) -> bool:
+        """
+        Урок считается «знакомым из диагностики», если не менее половины
+        его тем (topics) связаны с навыком, балл диагностики которого >= MASTERY_THRESHOLD.
+
+        Это позволяет показывать пользователю: «Эту тему ты, похоже, уже знаешь
+        — диагностика показала высокий балл по нужному навыку».
+        """
+        skill_names = self._get_topic_skill_names(lesson_id)
+        if not skill_names:
+            return False
+        mastered = sum(
+            1 for s in skill_names if user_skill_map.get(s, 0.0) >= MASTERY_THRESHOLD
+        )
+        return mastered / len(skill_names) >= 0.5
+
+    def _count_mastered_lessons_in_module(
+        self, module_id: int, user_skill_map: dict[str, float]
+    ) -> int:
+        """
+        Считает количество уроков в модуле, которые «знакомы из диагностики».
+        Используется для бейджа на карточке модуля в курсовой структуре.
+        """
+        lessons = self.course_repo.list_lessons(module_id)
+        return sum(
+            1
+            for lesson in lessons
+            if self._is_lesson_known_from_diagnostic(lesson.id, user_skill_map)
+        )
+
+    # ------------------------------------------------------------------ #
     #  Private helpers                                                     #
     # ------------------------------------------------------------------ #
 
-    def _build_portal_modules(self, user_id: int) -> list[PortalCourseModuleRead]:
+    def _build_portal_modules(
+        self, user_id: int, user_skill_map: dict[str, float]
+    ) -> list[PortalCourseModuleRead]:
         courses = self.course_repo.list_courses()
         if not courses:
             return []
@@ -186,17 +242,25 @@ class PortalService:
             if mod.id not in completed_ids and mod.id not in in_progress_ids:
                 unlocked = False
 
-            result.append(PortalCourseModuleRead(
-                id=portal_id,
-                linked_course_id=courses[0].id,
-                linked_module_id=mod.id,
-                linked_lesson_id=first_lesson_id,
-                title=mod.title,
-                status=status,
-                progress_percent=pct,
-                progress_label=f"{completed_lessons}/{total} уроков • {pct}%",
-                badge=_STATUS_BADGE.get(status, status),
-            ))
+            # Адаптивная метрика: сколько уроков уже знакомо по диагностике
+            mastered_lessons_count = self._count_mastered_lessons_in_module(
+                mod.id, user_skill_map
+            )
+
+            result.append(
+                PortalCourseModuleRead(
+                    id=portal_id,
+                    linked_course_id=courses[0].id,
+                    linked_module_id=mod.id,
+                    linked_lesson_id=first_lesson_id,
+                    title=mod.title,
+                    status=status,
+                    progress_percent=pct,
+                    progress_label=f"{completed_lessons}/{total} уроков • {pct}%",
+                    badge=_STATUS_BADGE.get(status, status),
+                    mastered_lessons_count=mastered_lessons_count,
+                )
+            )
         return result
 
     def _get_in_progress_module_ids(self, user_id: int) -> set[int]:
@@ -205,7 +269,15 @@ class PortalService:
 
     def _get_topic_ids(self, lesson_id: int) -> list[int]:
         from app.models import Topic
-        return list(self.db.scalars(select(Topic.id).where(Topic.lesson_id == lesson_id)))
+        return list(
+            self.db.scalars(select(Topic.id).where(Topic.lesson_id == lesson_id))
+        )
+
+    def _get_topic_skill_names(self, lesson_id: int) -> list[str]:
+        from app.models import Topic
+        return list(
+            self.db.scalars(select(Topic.skill_name).where(Topic.lesson_id == lesson_id))
+        )
 
     def _count_completed_lessons_in_module(self, user_id: int, module_id: int) -> int:
         from app.models import Progress
@@ -215,21 +287,30 @@ class PortalService:
             topic_ids = self._get_topic_ids(lesson.id)
             if not topic_ids:
                 continue
-            done_count = self.db.scalar(
-                select(func.count()).select_from(Progress).where(
-                    Progress.user_id == user_id,
-                    Progress.topic_id.in_(topic_ids),
-                    Progress.status == "completed",
+            done_count = (
+                self.db.scalar(
+                    select(func.count())
+                    .select_from(Progress)
+                    .where(
+                        Progress.user_id == user_id,
+                        Progress.topic_id.in_(topic_ids),
+                        Progress.status == "completed",
+                    )
                 )
-            ) or 0
+                or 0
+            )
             if done_count >= len(topic_ids):
                 completed += 1
         return completed
 
     def _build_checklist_items(
-        self, user_id: int, module_id: int
+        self,
+        user_id: int,
+        module_id: int,
+        user_skill_map: dict[str, float],
     ) -> tuple[list[PortalChecklistItemRead], list[PortalChecklistItemRead]]:
         from app.models import Exercise, Progress, Topic
+
         lessons = self.course_repo.list_lessons(module_id)
         theory_items: list[PortalChecklistItemRead] = []
         practice_items: list[PortalChecklistItemRead] = []
@@ -239,63 +320,108 @@ class PortalService:
             topic_ids = self._get_topic_ids(lesson.id)
             if not topic_ids:
                 continue
-            done_topics = self.db.scalar(
-                select(func.count()).select_from(Progress).where(
-                    Progress.user_id == user_id,
-                    Progress.topic_id.in_(topic_ids),
-                    Progress.status == "completed",
+
+            done_topics = (
+                self.db.scalar(
+                    select(func.count())
+                    .select_from(Progress)
+                    .where(
+                        Progress.user_id == user_id,
+                        Progress.topic_id.in_(topic_ids),
+                        Progress.status == "completed",
+                    )
                 )
-            ) or 0
-            theory_items.append(PortalChecklistItemRead(
-                title=lesson.title,
-                completed=done_topics >= len(topic_ids),
-                linked_lesson_id=lesson.id,
-            ))
+                or 0
+            )
+
+            # Адаптивная разметка: знаком ли этот урок из диагностики?
+            lesson_known = self._is_lesson_known_from_diagnostic(lesson.id, user_skill_map)
+
+            theory_items.append(
+                PortalChecklistItemRead(
+                    title=lesson.title,
+                    completed=done_topics >= len(topic_ids),
+                    linked_lesson_id=lesson.id,
+                    known_from_diagnostic=lesson_known,
+                )
+            )
+
+            # Для практики: проверяем навык каждого упражнения через его тему
             ex_rows = self.db.execute(
-                select(Exercise.id, Exercise.title)
+                select(Exercise.id, Exercise.title, Topic.skill_name)
                 .join(Topic, Exercise.topic_id == Topic.id)
                 .where(Topic.lesson_id == lesson.id)
             ).all()
-            for ex_id, ex_title in ex_rows:
-                practice_items.append(PortalChecklistItemRead(
-                    title=ex_title or f"Задача #{ex_id}",
-                    completed=ex_id in passed_ex_ids,
-                    linked_lesson_id=lesson.id,
-                ))
+
+            for ex_id, ex_title, ex_skill in ex_rows:
+                ex_known = user_skill_map.get(ex_skill or "", 0.0) >= MASTERY_THRESHOLD
+                practice_items.append(
+                    PortalChecklistItemRead(
+                        title=ex_title or f"Задача #{ex_id}",
+                        completed=ex_id in passed_ex_ids,
+                        linked_lesson_id=lesson.id,
+                        known_from_diagnostic=ex_known,
+                    )
+                )
 
         return theory_items, practice_items
 
     def _build_activity(self, user_id: int) -> list[PortalActivityRead]:
         rows = self.sub_repo.get_recent_submissions_with_exercise_title(user_id, limit=5)
         if not rows:
-            return [PortalActivityRead(label="Пока нет активности. Начните первый урок!")]
-        return [PortalActivityRead(label=f'Решена задача: "{ex_title}"') for _, ex_title in rows]
+            return [PortalActivityRead(label="Пока нет активности. Начните первый урок\!")]
+        return [
+            PortalActivityRead(label=f'Решена задача: "{ex_title}"')
+            for _, ex_title in rows
+        ]
 
-    def _build_recommendations(self, portal_modules: list[PortalCourseModuleRead]) -> list[PortalRecommendationRead]:
+    def _build_recommendations(
+        self, portal_modules: list[PortalCourseModuleRead]
+    ) -> list[PortalRecommendationRead]:
         recs: list[PortalRecommendationRead] = []
         for mod in portal_modules:
             if mod.status == "in_progress":
-                recs.append(PortalRecommendationRead(
-                    title=f"Продолжите: {mod.title}",
-                    description=f"Прогресс: {mod.progress_percent}%. Вернитесь к прерванному модулю.",
-                ))
+                recs.append(
+                    PortalRecommendationRead(
+                        title=f"Продолжите: {mod.title}",
+                        description=f"Прогресс: {mod.progress_percent}%. Вернитесь к прерванному модулю.",
+                    )
+                )
             elif mod.status == "available" and len(recs) < 2:
-                recs.append(PortalRecommendationRead(
-                    title=f"Следующий модуль: {mod.title}",
-                    description="На основе вашего прогресса подготовлены задачи.",
-                ))
+                # Если в доступном модуле есть знакомые темы — упоминаем это
+                if mod.mastered_lessons_count > 0:
+                    recs.append(
+                        PortalRecommendationRead(
+                            title=f"Следующий модуль: {mod.title}",
+                            description=(
+                                f"{mod.mastered_lessons_count} из уроков знакомо по диагностике — "
+                                "уже есть хорошая база для старта."
+                            ),
+                        )
+                    )
+                else:
+                    recs.append(
+                        PortalRecommendationRead(
+                            title=f"Следующий модуль: {mod.title}",
+                            description="На основе вашего прогресса подготовлены задачи.",
+                        )
+                    )
             if len(recs) >= 2:
                 break
         if not recs:
-            recs.append(PortalRecommendationRead(
-                title="Начните с первого модуля",
-                description="Пройдите диагностику и начните адаптивное обучение.",
-            ))
+            recs.append(
+                PortalRecommendationRead(
+                    title="Начните с первого модуля",
+                    description="Пройдите диагностику и начните адаптивное обучение.",
+                )
+            )
         return recs
 
     def _count_total_exercises(self) -> int:
         from app.models import Exercise
-        return int(self.db.scalar(select(func.count()).select_from(Exercise)) or 0)
+        return int(
+            self.db.scalar(select(func.count()).select_from(Exercise)) or 0
+        )
 
     @staticmethod
     def _level_from_score(score: float) -> str:

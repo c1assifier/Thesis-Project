@@ -43,6 +43,8 @@ export interface PortalCourseModule {
   progress_percent: number;
   progress_label: string;
   badge: string;
+  /** Сколько уроков в модуле уже знакомы по результатам диагностики */
+  mastered_lessons_count?: number;
 }
 
 export interface PortalCourseStructure {
@@ -70,6 +72,8 @@ export interface PortalChecklistItem {
   title: string;
   completed: boolean;
   linked_lesson_id: number | null;
+  /** Тема/задача знакома по результатам входной диагностики */
+  known_from_diagnostic?: boolean;
 }
 
 export interface PortalModuleDetails {

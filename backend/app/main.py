@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.database import Base, SessionLocal, engine
+from app.core.security import SecurityHeadersMiddleware
 from app.models import (
     Course,
     DiagnosticAnswer,
@@ -43,6 +44,11 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
+
+app.add_middleware(
+    SecurityHeadersMiddleware,
+    content_security_policy=settings.content_security_policy,
+)
 
 app.add_middleware(
     CORSMiddleware,
